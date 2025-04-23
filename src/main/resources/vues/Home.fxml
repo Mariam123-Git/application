@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <HBox prefHeight="50.0" prefWidth="200.0" styleClass="navbar">
+               <children>
+                  <Label styleClass="logo" text="Evenement Pro" />
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="540.0" styleClass="nav-links" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#goToHome" styleClass="nav-link" text="Accueil" />
+                        <Button mnemonicParsing="false" onAction="#goToEvents" styleClass="nav-link" text="Evenements" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#goToAbout" styleClass="nav-link" text="About" />
+                        <Button mnemonicParsing="false" onAction="#goToContact" styleClass="nav-link" text="Contact" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" styleClass="login-button" text="Connexion" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="user-menu" HBox.hgrow="ALWAYS">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="user-avatar">
+                           <children>
+                              <Label text="U" />
+                           </children>
+                        </StackPane>
+                        <Label text="Martin D." />
+                        <Label styleClass="dropdown-arrow" text="▼" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <StackPane fx:id="welcomeBanner" prefHeight="180.0" prefWidth="1203.0" styleClass="welcome-banner">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
+                     <children>
+                        <Label styleClass="banner-title" text="Découvrez nos événements" />
+                        <Label styleClass="banner-subtitle" text="Trouvez et inscrivez-vous aux événements qui vous intéressent" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="search-bar">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" styleClass="search-button">
+                                 <graphic>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/search_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="main-content" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="content-container">
+               <opaqueInsets>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </opaqueInsets>
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section">
+                     <children>
+                        <Label styleClass="section-title" text="Événements à venir" />
+                        <HBox fx:id="eventsToggleGroup" prefHeight="100.0" prefWidth="200.0" spacing="25.0" styleClass="events-container">
+                        
+                        <!-- Événement 1 -->
+                        <VBox styleClass="event-card">
+                            <StackPane style="-fx-background-color: #6f42c1;" styleClass="event-image-container">
+                                <Label styleClass="event-image-title" text="Festival de Musique" />
+                            </StackPane>
+                            <HBox styleClass="event-info">
+                                <VBox styleClass="event-date">
+                                    <Label styleClass="event-day" text="15" />
+                                    <Label styleClass="event-month" text="MAI" />
+                                </VBox>
+                                <VBox styleClass="event-details">
+                                    <Label styleClass="event-title" text="Festival de Jazz" />
+                                    <Label styleClass="event-location" text="Paris, France" />
+                                </VBox>
+                            </HBox>
+                            <HBox styleClass="event-actions">
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                            </HBox>
+                        </VBox>
+                        
+                        
+                        <!-- Événement 2 -->
+                        <VBox styleClass="event-card">
+                            <StackPane style="-fx-background-color: #fd7e14;" styleClass="event-image-container">
+                                <Label styleClass="event-image-title" text="Conférence Tech" />
+                            </StackPane>
+                            <HBox styleClass="event-info">
+                                <VBox styleClass="event-date">
+                                    <Label styleClass="event-day" text="22" />
+                                    <Label styleClass="event-month" text="MAI" />
+                                </VBox>
+                                <VBox styleClass="event-details">
+                                    <Label styleClass="event-title" text="IA Summit 2025" />
+                                    <Label styleClass="event-location" text="Lyon, France" />
+                                </VBox>
+                            </HBox>
+                            <HBox styleClass="event-actions">
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                            </HBox>
+                        </VBox>
+                        
+                      
+                         <!-- Événement 3 -->
+                        <VBox styleClass="event-card">
+                            <StackPane style="-fx-background-color: #20c997;" styleClass="event-image-container">
+                                <Label styleClass="event-image-title" text="Workshop Design" />
+                            </StackPane>
+                            <HBox styleClass="event-info">
+                                <VBox styleClass="event-date">
+                                    <Label styleClass="event-day" text="30" />
+                                    <Label styleClass="event-month" text="MAI" />
+                                </VBox>
+                                <VBox styleClass="event-details">
+                                    <Label styleClass="event-title" text="UX/UI Workshop" />
+                                    <Label styleClass="event-location" text="Marseille, France" />
+                                </VBox>
+                            </HBox>
+                            <HBox styleClass="event-actions">
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                            </HBox>
+                        </VBox>     
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section">
+                     <children>
+                        <Label styleClass="section-title" text="Mes événements à Venir" />
+                        
+                         <VBox spacing="15">
+                        <!-- Événement inscrit 1 -->
+                        <HBox styleClass="registered-event">
+                            <VBox style="-fx-background-color: #17a2b8;" styleClass="registered-event-date">
+                                <Label styleClass="reg-event-day" text="10" />
+                                <Label styleClass="reg-event-month" text="JUIN" />
+                            </VBox>
+                            <VBox styleClass="registered-event-info" HBox.hgrow="ALWAYS">
+                                <Label styleClass="reg-event-title" text="Conférence DevOps 2025" />
+                                <Label styleClass="reg-event-details" text="Bordeaux • 10-12 Juin • 9h00" />
+                            </VBox>
+                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Annuler" />
+                        </HBox>
+                        
+                        <!-- Événement inscrit 2 -->
+                        <HBox styleClass="registered-event">
+                            <VBox style="-fx-background-color: #28a745;" styleClass="registered-event-date">
+                                <Label styleClass="reg-event-day" text="17" />
+                                <Label styleClass="reg-event-month" text="JUIN" />
+                            </VBox>
+                            <VBox styleClass="registered-event-info" HBox.hgrow="ALWAYS">
+                                <Label styleClass="reg-event-title" text="Atelier de Design Thinking" />
+                                <Label styleClass="reg-event-details" text="Paris • 17 Juin • 14h00" />
+                            </VBox>
+                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Annuler" />
+                        </HBox>
+                    </VBox>
+                     </children>
+                  </VBox>
+                  
+               </children>                       
+            </VBox>
+            
+            
+         </content>
+             
+      </ScrollPane>
+   </center>
+   <bottom>
+        <HBox styleClass="footer">
+            <Label styleClass="footer-text" text="© 2025 ÉvénementsPro - Tous droits réservés" />
+        </HBox>
+    </bottom>
+</BorderPane>
