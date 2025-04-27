@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="parent" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.LoginController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.LoginController">
    <center>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="parent" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #3d348b;">
                <children>
@@ -41,7 +41,7 @@
                   </Label>
                </children>
             </VBox>
-            <Pane layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
+            <Pane fx:id="content_area" layoutX="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -83,7 +83,7 @@
                   <FontAwesomeIconView glyphName="CLOSE" layoutX="374.0" layoutY="25.0" onMouseClicked="#close_app" />
                </children>
             </Pane>
-         </children>
+         </children> 
       </AnchorPane>
    </center>
    <stylesheets>

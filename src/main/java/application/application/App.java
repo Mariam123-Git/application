@@ -30,8 +30,8 @@ public class App extends Application
 	        stage.initStyle(StageStyle.UNDECORATED);      
 	      //  App.stage = stage;
 	        stage.setScene(scene);
-	        this.stage=stage;
-	        MetaData.parent= root;
+	        App.stage=stage;
+	        MetaData.parent= root; 
 	        stage.show();
 		 
 	    }

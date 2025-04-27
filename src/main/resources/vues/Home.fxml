@@ -45,11 +45,12 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                      <children>
+                     
                         <Label styleClass="banner-title" text="Découvrez nos événements" />
                         <Label styleClass="banner-subtitle" text="Trouvez et inscrivez-vous aux événements qui vous intéressent" />
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="search-bar">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                              <Text  text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" styleClass="search-button">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
@@ -58,6 +59,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                       
                               </Button>
                            </children>
                         </HBox>
@@ -186,7 +188,7 @@
                </children>                       
             </VBox>
             
-            
+             
          </content>
              
       </ScrollPane>

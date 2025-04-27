@@ -31,7 +31,7 @@ public class RegistrationController implements Initializable{
     private PasswordField passwordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private PasswordField confirmpasswordField;
 
     @FXML
     private Button registerButton;
@@ -40,15 +40,15 @@ public class RegistrationController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        registerButton.setOnAction(e -> handleRegister());
+       // registerButton.setOnAction(e -> handleRegister(null));
     }
 
-
-    private void handleRegister() {
+    @FXML
+    private void handleRegister( MouseEvent event) {
         String username = usernameField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
+        String confirmPassword = confirmpasswordField.getText();
 
         if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             showAlert(AlertType.ERROR, "Error", "Please fill all fields.");
@@ -68,7 +68,7 @@ public class RegistrationController implements Initializable{
    	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
    	        App.stage.setScene(new Scene(root));
    	    } catch (IOException e) {
-   	        e.printStackTrace();
+   	        e.printStackTrace(); 
    	    }
 	}
 
