@@ -12,9 +12,12 @@ public class AuthService {
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
+           System.out.print("User Exists\n");
             return rs.next();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.print("Couldn't fund user\n");
+
             return false;
         }
     }

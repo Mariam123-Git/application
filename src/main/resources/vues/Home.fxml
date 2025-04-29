@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.HomeController">
    <top>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
          <children>
@@ -50,7 +50,7 @@
                         <Label styleClass="banner-subtitle" text="Trouvez et inscrivez-vous aux événements qui vous intéressent" />
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="search-bar">
                            <children>
-                              <Text  text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                              <Text text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" styleClass="search-button">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
@@ -155,7 +155,7 @@
                      <children>
                         <Label styleClass="section-title" text="Mes événements à Venir" />
                         
-                         <VBox spacing="15">
+                         <VBox spacing="5">
                         <!-- Événement inscrit 1 -->
                         <HBox styleClass="registered-event">
                             <VBox style="-fx-background-color: #17a2b8;" styleClass="registered-event-date">

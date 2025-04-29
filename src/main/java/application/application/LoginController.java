@@ -2,6 +2,7 @@ package application.application;
 
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -55,16 +56,18 @@ public class LoginController implements Initializable{
 
     // Event handler for the Login button click
     @FXML
-    private void handleLogin(ActionEvent event) {
+    private void handleLogin(MouseEvent event) {
     	String email = emailField.getText();
         String password = passwordField.getText();
+  	  //System.out.println("dedans 1");
 
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
-            return;
+            return; 
         }
-
+        //System.out.println("dedans 2");
         if (AuthService.userExists(email)) {
+        //	System.out.println("dedans 3");
             if (AuthService.authenticate(email, password)) {
                 showAlert("Succès", "Connexion réussie !");
                 goToHome();
@@ -81,6 +84,8 @@ public class LoginController implements Initializable{
     	 try {
     	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
     	        App.stage.setScene(new Scene(root));
+    	        App.stage.sizeToScene();
+    	        App.stage.centerOnScreen();
     	    } catch (IOException e) {
     	        e.printStackTrace();
     	    }
@@ -88,7 +93,7 @@ public class LoginController implements Initializable{
 
     // Event handler for "Forget Password?" label click
     @FXML
-    private void handleForgetPassword(ActionEvent event) {
+    private void handleForgetPassword(MouseEvent event) {
         showAlert("Info", "Redirect to password recovery");
         // Implement password recovery functionality here
     }

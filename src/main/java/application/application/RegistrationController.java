@@ -2,6 +2,7 @@ package application.application;
 
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,7 +67,7 @@ public class RegistrationController implements Initializable{
     	// TODO Auto-generated method stub
    	 try {
    	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
-   	        App.stage.setScene(new Scene(root));
+   	        App.stage.setScene(new Scene(root,500,600));
    	    } catch (IOException e) {
    	        e.printStackTrace(); 
    	    }
