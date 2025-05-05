@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -13,63 +14,61 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.HomeController">
+ <!-- Navbar -->
+ 
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="TOP_CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="50.0" prefWidth="200.0" styleClass="navbar">
+            <HBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="580.0">
                <children>
-                  <Label styleClass="logo" text="Evenement Pro" />
-                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="540.0" styleClass="nav-links" HBox.hgrow="ALWAYS">
+                  <ImageView fitHeight="86.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Logos.png" />
+                     </image>
+                  </ImageView>
+                  <Label styleClass="logo" text="EvenementPro" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="nav-links" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#goToHome" styleClass="nav-link" text="Accueil" />
-                        <Button mnemonicParsing="false" onAction="#goToEvents" styleClass="nav-link" text="Evenements" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#goToAbout" styleClass="nav-link" text="About" />
-                        <Button mnemonicParsing="false" onAction="#goToContact" styleClass="nav-link" text="Contact" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Home" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Event" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="About" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" />
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" styleClass="login-button" text="Connexion" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="user-menu" HBox.hgrow="ALWAYS">
-                     <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="user-avatar">
-                           <children>
-                              <Label text="U" />
-                           </children>
-                        </StackPane>
-                        <Label text="Martin D." />
-                        <Label styleClass="dropdown-arrow" text="▼" />
-                     </children>
-                  </HBox>
                </children>
             </HBox>
-            <StackPane fx:id="welcomeBanner" prefHeight="180.0" prefWidth="1203.0" styleClass="welcome-banner">
+            <StackPane fx:id="welcomeBanne" prefHeight="150.0" prefWidth="200.0" styleClass="welcome-banner">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                     
                         <Label styleClass="banner-title" text="Découvrez nos événements" />
                         <Label styleClass="banner-subtitle" text="Trouvez et inscrivez-vous aux événements qui vous intéressent" />
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="search-bar">
                            <children>
-                              <Text text="Rechercher un événement..." HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" styleClass="search-button">
-                                 <graphic>
-                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/search_icon.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                       
-                              </Button>
+                              <TextField promptText="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/search_icon.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
                </children>
             </StackPane>
-         </children>
-      </VBox>
+            <StackPane fx:id="loggedInBanner" managed="false" prefHeight="150.0" prefWidth="200.0" styleClass="logged-in-banner" visible="false">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
+                     <children>
+                        <Label styleClass="banner-title" text="Bienvenue, Martin!" />
+                        <Label styleClass="banner-subtitle" text="Vous avez 2 événements à venir" />
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </children></VBox>
    </top>
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="main-content" BorderPane.alignment="CENTER">

@@ -24,13 +24,15 @@ public class App extends Application
 	        MetaData.parent= fxmlLoader;
 	        primaryStage.show();*/
 		  
-		    Parent root = FXMLLoader.load(getClass().getResource("/vues/Login.fxml"));
+		    Parent root = FXMLLoader.load(getClass().getResource("/vues/Home2.fxml"));
 	        Scene scene = new Scene(root);
 	        stage.setTitle("Gestion d'Événements");
 	        stage.initStyle(StageStyle.UNDECORATED);      
 	      //  App.stage = stage;
 	        stage.setScene(scene);
 	        App.stage=stage;
+	        App.stage.sizeToScene();   //pour center l'élément
+	        App.stage.centerOnScreen();//pour centrer l'élément
 	        MetaData.parent= root; 
 	        stage.show();
 		 

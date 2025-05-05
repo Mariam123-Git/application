@@ -84,8 +84,8 @@ public class LoginController implements Initializable{
     	 try {
     	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
     	        App.stage.setScene(new Scene(root));
-    	        App.stage.sizeToScene();
-    	        App.stage.centerOnScreen();
+    	        App.stage.sizeToScene();   //pour center l'élément
+    	        App.stage.centerOnScreen();//pour centrer l'élément
     	    } catch (IOException e) {
     	        e.printStackTrace();
     	    }
