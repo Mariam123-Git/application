@@ -13,11 +13,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.scene.layout.GridPane?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1200.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.HomeController">
  <!-- Navbar -->
  
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="navbar" BorderPane.alignment="CENTER">
+      <VBox fx:id="homeSection" prefHeight="200.0" prefWidth="100.0" styleClass="navbar" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="580.0">
                <children>
@@ -29,10 +38,10 @@
                   <Label styleClass="logo" text="EvenementPro" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="nav-links" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="nav-link" text="Home" />
-                        <Button mnemonicParsing="false" styleClass="nav-link" text="Event" />
-                        <Button mnemonicParsing="false" styleClass="nav-link" text="About" />
-                        <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Home"    onAction="#scrollToHome" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Event"   onAction="#scrollToEvent" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="About"   onAction="#scrollToAbout" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" onAction="#scrollToContact" />
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" styleClass="login-button" text="Connexion" />
@@ -71,14 +80,14 @@
          </children></VBox>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="main-content" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" styleClass="main-content" BorderPane.alignment="CENTER">
          <content>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" styleClass="content-container">
                <opaqueInsets>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </opaqueInsets>
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section">
+                  <VBox fx:id="eventSection" prefHeight="200.0" prefWidth="100.0" styleClass="section">
                      <children>
                         <Label styleClass="section-title" text="Événements à venir" />
                         <HBox fx:id="eventsToggleGroup" prefHeight="100.0" prefWidth="200.0" spacing="25.0" styleClass="events-container">
@@ -184,10 +193,105 @@
                      </children>
                   </VBox>
                   
+                  
+                   <!-- Section About  -->
+					<VBox fx:id="aboutSection" styleClass="section about-section">
+					    <HBox styleClass="section-header">
+<!-- 					        <FontIcon iconLiteral="fas-info-circle" styleClass="section-icon" /> -->
+					        <Label styleClass="section-title" text="À propos" />
+					    </HBox>
+					    
+					    <VBox styleClass="about-content">
+					        <Label styleClass="about-intro" wrapText="true" 
+					               text="Notre plateforme vous permet de découvrir et de vous inscrire à une multitude d'événements adaptés à vos centres d'intérêt. En quelques clics, explorez une sélection riche et diversifiée de rencontres, ateliers, conférences et activités près de chez vous." />
+					        
+					        <HBox styleClass="features-container" spacing="15">
+					            <VBox styleClass="feature-item">
+<!-- 					                <FontIcon iconLiteral="fas-search" styleClass="feature-icon" /> -->
+					                <Label styleClass="feature-title" text="Découvrir" />
+					                <Label styleClass="feature-desc" wrapText="true" 
+					                       text="Explorez des événements locaux adaptés à vos intérêts grâce à notre moteur de recherche intelligent et nos recommandations personnalisées" />
+					            </VBox>
+					            
+					            <VBox styleClass="feature-item">
+<!-- 					                <FontIcon iconLiteral="fas-calendar-check" styleClass="feature-icon" /> -->
+					                <Label styleClass="feature-title" text="S'inscrire" />
+					                <Label styleClass="feature-desc" wrapText="true" 
+					                       text="Réservez vos places en quelques clics avec notre système de paiement sécurisé et recevez immédiatement vos confirmations par email" />
+					            </VBox>
+					            
+					            <VBox styleClass="feature-item">
+<!-- 					                <FontIcon iconLiteral="fas-users" styleClass="feature-icon" /> -->
+					                <Label styleClass="feature-title" text="Participer" />
+					                <Label styleClass="feature-desc" wrapText="true" 
+					                       text="Rejoignez une communauté passionnée, partagez vos expériences et échangez avec d'autres participants avant, pendant et après les événements" />
+					            </VBox>
+					        </HBox>
+					        
+					        <VBox styleClass="about-mission" spacing="10">
+					            <Label styleClass="mission-title" text="Notre mission" />
+					            <Label styleClass="mission-text" wrapText="true" 
+					                   text="Depuis notre création en 2020, nous nous engageons à faciliter l'accès à la culture et aux loisirs pour tous. Notre équipe travaille sans relâche pour vous proposer des événements de qualité, soigneusement sélectionnés pour répondre à vos attentes et enrichir votre quotidien." />
+					            <Label styleClass="mission-text" wrapText="true"
+					                   text="Avec plus de 500 partenaires à travers le pays et une communauté de plus de 50 000 utilisateurs actifs, nous sommes fiers de contribuer à créer des connexions significatives entre les personnes partageant les mêmes passions." />
+					        </VBox>
+					        
+					        <HBox styleClass="action-buttons" spacing="15">
+					            <Button styleClass="learn-more-btn" text="En savoir plus" />
+					            <Button styleClass="contact-btn" text="Nous contacter" />
+					        </HBox>
+					    </VBox>
+					</VBox>
+                 <!-- Section Contact  -->
+  
+				  <VBox fx:id="contactSection" styleClass="contact-section" >
+				    <Label styleClass="form-title" text="Envoyez-nous un message" />
+				    <!-- Prénom -->
+				    <HBox alignment="CENTER_LEFT" spacing="10" />
+				   <GridPane hgap="15.0" styleClass="form-grid" vgap="15.0">
+				     <columnConstraints>
+				       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				     </columnConstraints>
+				     <rowConstraints>
+				       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				     </rowConstraints>
+				      <children>
+				         <Label styleClass="form-label" text="First Name" />
+				         <Label styleClass="form-label" text="Last Name" GridPane.rowIndex="2" />
+				         <TextField promptText="Your First Name" styleClass="form-input" GridPane.columnIndex="1" />
+				         <TextField promptText="Your Last Name" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				         <TextField promptText="Yourr Label" styleClass="form-input" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+				         <Label styleClass="form-label" text="Email" GridPane.rowIndex="4" />
+				         <Label styleClass="form-label" text="Subject" GridPane.rowIndex="6" />
+				         
+                         <ComboBox fx:id="subjectComboBox" prefHeight="47.0"  promptText="Choose your Subject" styleClass="form-select" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+				         <Label styleClass="form-label" text="Message" GridPane.rowIndex="8" />
+				         <TextArea prefHeight="200.0" prefWidth="200.0" styleClass="form-textarea" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+				         <CheckBox mnemonicParsing="false" prefHeight="17.0" prefWidth="437.0" text="J'accepte que mes données soient traitées conformément à la politique de confidentialité" GridPane.rowIndex="11" />
+				         <Button mnemonicParsing="false" styleClass="submit-button" text="Send a message" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+				
+				      </children>
+				   </GridPane>
+				
+				</VBox>
+                <!-- Fin des section   -->
+  
+              
                </children>                       
-            </VBox>
-            
-             
+            </VBox>            
          </content>
              
       </ScrollPane>

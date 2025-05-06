@@ -66,6 +66,27 @@
 	    <artifactId>fontawesomefx-fontawesome</artifactId>
 	    <version>4.7.0-9.1.2</version>
 	</dependency>
+	<!-- Core Ikonli -->
+	<dependency>
+	    <groupId>org.kordamp.ikonli</groupId>
+	    <artifactId>ikonli-core</artifactId>
+	    <version>12.3.1</version>
+	</dependency>
+	
+	<!-- JavaFX Ikonli support -->
+	<dependency>
+	    <groupId>org.kordamp.ikonli</groupId>
+	    <artifactId>ikonli-javafx</artifactId>
+	    <version>12.3.1</version>
+	</dependency>
+	
+	<!-- Exemple : FontAwesome pack -->
+	<dependency>
+	    <groupId>org.kordamp.ikonli</groupId>
+	    <artifactId>ikonli-fontawesome5-pack</artifactId>
+	    <version>12.3.1</version>
+	</dependency>
+
     </dependencies>
 
     <build>

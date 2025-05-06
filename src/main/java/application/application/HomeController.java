@@ -1,15 +1,21 @@
 package application.application;
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -20,6 +26,19 @@ public class HomeController {
     
     @FXML
     private HBox eventsToggleGroup;
+    
+    @FXML 
+    private VBox homeSection;
+    @FXML 
+    private VBox eventSection;
+    @FXML 
+    private VBox contactSection;
+    @FXML 
+    private VBox aboutSection;
+    @FXML 
+    private ScrollPane scrollPane; // le scroll principal
+    @FXML
+    private ComboBox<String> subjectComboBox;
 
     /**
      * Naviguer vers la page d'accueil
@@ -181,6 +200,39 @@ public class HomeController {
     @FXML
     public void initialize() {
         // Initialisation des composants ou chargement de données si nécessaire
+    	subjectComboBox.getItems().addAll(
+    	        "Question générale",
+    	        "Support technique",
+    	        "Partenariat",
+    	        "Suggestion",
+    	        "Autre");
         System.out.println("HomeController initialisé");
     }
+    
+    private void scrollToNode(Node node) {
+        scrollPane.layout(); // force le layout pour avoir les coordonnées
+        double y = node.getBoundsInParent().getMinY();
+        double height = scrollPane.getContent().getBoundsInLocal().getHeight();
+        scrollPane.setVvalue(y / height);
+    }
+    @FXML
+    private void scrollToHome() {
+        scrollToNode(homeSection);
+    }
+
+    @FXML
+    private void scrollToEvent() {
+        scrollToNode(eventSection);
+    }
+
+    @FXML
+    private void scrollToAbout() {
+        scrollToNode(aboutSection);
+    }
+
+    @FXML
+    private void scrollToContact() {
+		scrollToNode(contactSection);
+    }
+    
 }
