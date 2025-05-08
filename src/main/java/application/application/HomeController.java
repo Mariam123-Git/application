@@ -15,6 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
 
 import java.io.IOException;
@@ -39,7 +43,16 @@ public class HomeController {
     private ScrollPane scrollPane; // le scroll principal
     @FXML
     private ComboBox<String> subjectComboBox;
+    
+    // ID de l'utilisateur actuellement connecté (à remplacer par votre système d'authentification)
+  // Utilisez une valeur par défaut pour les tests
+    private int currentUserId;
+    private String currentUserEmail;
 
+    public void setUserData(int userId, String userEmail) {
+        this.currentUserId = userId;
+        this.currentUserEmail = userEmail;
+    }
     /**
      * Naviguer vers la page d'accueil
      * @param event L'événement de clic
@@ -128,24 +141,48 @@ public class HomeController {
     /**
      * Afficher les détails d'un événement
      * @param event L'événement de clic
+     * try
      */
     @FXML
     public void showEventDetails(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/event_details.fxml"));
-            Parent root = loader.load();
-            // Vous pouvez passer des données à la vue des détails si nécessaire
-            // EventDetailsController controller = loader.getController();
-            // controller.setEventData(eventData);
+            Button sourceButton = (Button) event.getSource();
             
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) welcomeBanner.getScene().getWindow();
-            stage.setScene(scene);
+            // Récupérer l'ID comme String d'abord, puis convertir
+            String eventIdStr = (String) sourceButton.getUserData();
+            int eventId = Integer.parseInt(eventIdStr);
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/details.fxml"));
+            Parent root = loader.load();
+            
+            EventDetailController controller = loader.getController();
+            controller.initData(eventId, currentUserId, currentUserEmail);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
+        } catch (NumberFormatException e) {
+            showErrorAlert("Erreur", "ID d'événement invalide");
+            e.printStackTrace();
         } catch (IOException e) {
-            showErrorAlert("Erreur", "Impossible de charger les détails de l'événement.");
+            showErrorAlert("Erreur", "Impossible de charger les détails de l'événement");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Méthode pour extraire l'ID de l'événement à partir de la carte d'événement
+     * Ceci est une approche simplifiée, vous devrez l'adapter à votre structure réelle
+     */
+    private int getEventIdFromCard(Node eventCard) {
+        // Pour les tests, utilisons des ID statiques basés sur l'ordre des cartes
+        int index = eventsToggleGroup.getChildren().indexOf(eventCard);
+        
+        // ID d'événement par défaut basé sur l'index (1, 2, 3...)
+        return index + 1;
+        
+        // Méthode alternative: si vous stockez l'ID dans userData
+        // return (int) eventCard.getUserData();
     }
 
     /**
@@ -206,7 +243,26 @@ public class HomeController {
     	        "Partenariat",
     	        "Suggestion",
     	        "Autre");
+        
+        // Attacher les ID d'événements aux cartes
+        setupEventCards();
+        
         System.out.println("HomeController initialisé");
+    }
+    
+    /**
+     * Configurer les cartes d'événements avec leurs IDs respectifs
+     */
+    private void setupEventCards() {
+        // Vérifier si des cartes d'événements existent
+        if (eventsToggleGroup != null && !eventsToggleGroup.getChildren().isEmpty()) {
+            // Pour chaque carte d'événement, assigner un ID
+            for (int i = 0; i < eventsToggleGroup.getChildren().size(); i++) {
+                Node card = eventsToggleGroup.getChildren().get(i);
+                // Stocker l'ID d'événement (i+1) dans userData
+                card.setUserData(i + 1);
+            }
+        }
     }
     
     private void scrollToNode(Node node) {
@@ -234,5 +290,4 @@ public class HomeController {
     private void scrollToContact() {
 		scrollToNode(contactSection);
     }
-    
 }
