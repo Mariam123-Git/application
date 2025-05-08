@@ -29,14 +29,14 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="1280.0" styleClass="main-container" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.DashboardController">
+<BorderPane prefHeight="700.0" prefWidth="1280.0" styleClass="main-container" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.DashboardController">
    <top>
       <HBox alignment="CENTER_LEFT" styleClass="top-bar">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" /> 
          </padding>
          <children>
-            <Label styleClass="app-title" text="Gestion d'Événements">
+            <Label styleClass="app-title" text="Event Management">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
@@ -65,7 +65,7 @@
                         </font>
                      </Label>
                   </VBox>
-                  <Button fx:id="btnLogout" onAction="#handleLogout" styleClass="logout-button" text="Déconnexion" />
+                  <Button fx:id="btnLogout" onAction="#handleLogout" styleClass="logout-button" text="Log out " />
                </HBox>
             </HBox>
          </children>
@@ -91,65 +91,66 @@
                <Insets top="20.0" />
             </padding>
             
-            <Button fx:id="btnDashboard" onAction="#handleDashboard" styleClass="menu-button, active-menu-button">
-               <graphic>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
-                     <FontAwesomeIconView glyphName="HOME" size="16" styleClass="page-title" />
-                     <Label text="Dashboard" />
-                  </HBox>
-               </graphic>
-            </Button>
+           <Button fx:id="btnDashboard" maxWidth="1.7976931348623157E308" onAction="#handleDashboard" prefWidth="180.0" styleClass="menu-button, active-menu-button">
+			   <graphic>
+			      <HBox alignment="CENTER_LEFT" prefWidth="180.0" spacing="10.0">
+			         <FontAwesomeIconView glyphName="HOME" size="16" styleClass="page-title" />
+			         <Label styleClass="side-label" text="Dashboard" />
+			      </HBox>
+			   </graphic>
+		  </Button>
+
             
-            <Button fx:id="btnEvents" onAction="#handleEvents" styleClass="menu-button">
+            <Button fx:id="btnEvents" maxWidth="1.7976931348623157E308" onAction="#handleEvents" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="CALENDAR" size="16" />
-                     <Label text="Événements" />
+                     <Label styleClass="side-label" text="Events" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCreateEvent" onAction="#handleCreateEvent" styleClass="menu-button">
+            <Button fx:id="btnCreateEvent" maxWidth="1.7976931348623157E308" onAction="#handleCreateEvent" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="PLUS_CIRCLE" size="16" />
-                     <Label text="Créer Événement" />
+                     <Label styleClass="side-label" text="Create an Event" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnParticipants" onAction="#handleParticipants" styleClass="menu-button">
+            <Button fx:id="btnParticipants" maxWidth="1.7976931348623157E308" onAction="#handleParticipants" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="USERS" size="16" />
-                     <Label text="Participants" />
+                     <Label styleClass="side-label" text="Participants" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCommunications" onAction="#handleCommunications" styleClass="menu-button">
+            <Button fx:id="btnCommunications" maxWidth="1.7976931348623157E308" onAction="#handleCommunications" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="ENVELOPE" size="16" />
-                     <Label text="Communications" />
+                     <Label styleClass="side-label" text="Communications" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnReports" onAction="#handleReports" styleClass="menu-button">
+            <Button fx:id="btnReports" maxWidth="1.7976931348623157E308" onAction="#handleReports" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="BAR_CHART" size="16" />
-                     <Label text="Rapports" />
+                     <Label styleClass="side-label" text="Reports" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCategories" onAction="#handleCategories" styleClass="menu-button">
+            <Button fx:id="btnCategories" maxWidth="1.7976931348623157E308" onAction="#handleCategories" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="TAGS" size="16" />
-                     <Label text="Catégories" />
+                     <Label styleClass="side-label" text="Categories" />
                   </HBox>
                </graphic>
             </Button>
@@ -160,20 +161,20 @@
                </VBox.margin>
             </Separator>
             
-            <Button fx:id="btnSettings" onAction="#handleSettings" styleClass="menu-button">
+            <Button fx:id="btnSettings" maxWidth="1.7976931348623157E308" onAction="#handleSettings" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="COG" size="16" />
-                     <Label text="Paramètres" />
+                     <Label styleClass="side-label" text="settings" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnHelp" onAction="#handleHelp" styleClass="menu-button">
+            <Button fx:id="btnHelp" maxWidth="1.7976931348623157E308" onAction="#handleHelp" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="QUESTION_CIRCLE" size="16" />
-                     <Label text="Aide" />
+                     <Label styleClass="side-label" text="Help" />
                   </HBox>
                </graphic>
             </Button>
@@ -199,12 +200,12 @@
                   <!-- Header avec date et filtres -->
                   <HBox alignment="CENTER_LEFT" spacing="15.0">
                      <VBox>
-                        <Label styleClass="page-title" text="Tableau de bord">
+                        <Label styleClass="page-title" text="Dashboard">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCurrentDate" styleClass="page-subtitle" text="29 Avril 2025">
+                        <Label fx:id="lblCurrentDate" styleClass="page-subtitle" text="29 April 2025">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -212,10 +213,10 @@
                      </VBox>
                      <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
                         <Label text="Période:" />
-                        <ComboBox fx:id="cbPeriode" prefWidth="150.0" promptText="Cette semaine" />
-                        <DatePicker fx:id="dateDebut" promptText="Date début" />
-                        <DatePicker fx:id="dateFin" promptText="Date fin" />
-                        <Button fx:id="btnRefresh" onAction="#handleRefresh" styleClass="action-button" text="Actualiser">
+                        <ComboBox fx:id="cbPeriode" prefWidth="150.0" promptText="This week" />
+                        <DatePicker fx:id="dateDebut" promptText="Start date" />
+                        <DatePicker fx:id="dateFin" promptText="End Date" />
+                        <Button fx:id="btnRefresh" onAction="#handleRefresh" styleClass="action-button" text="Refresh">
                            <graphic>
                               <FontAwesomeIconView glyphName="REFRESH" />
                            </graphic>
@@ -244,7 +245,7 @@
                               <FontAwesomeIconView glyphName="CALENDAR" size="24" styleClass="card-icon" />
                            </HBox>
                            <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                              <Label styleClass="stat-label" text="Événements à venir" />
+                              <Label styleClass="stat-label" text="Upcoming Event" />
                               <Label fx:id="lblUpcomingEvents" styleClass="stat-value" text="0">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
@@ -269,7 +270,7 @@
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblParticipantsVariation" styleClass="stat-variation, positive" text="+8% depuis le mois dernier" />
+                              <Label fx:id="lblParticipantsVariation" styleClass="stat-variation, positive" text="+8% Since last Month" />
                            </VBox>
                         </VBox>
                         
@@ -282,13 +283,13 @@
                               <FontAwesomeIconView glyphName="PIE_CHART" size="24" styleClass="card-icon" />
                            </HBox>
                            <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                              <Label styleClass="stat-label" text="Taux de remplissage moyen" />
+                              <Label styleClass="stat-label" text="Average occupancy rate" />
                               <Label fx:id="lblAverageFillingRate" styleClass="stat-value" text="0%">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblFillingRateVariation" styleClass="stat-variation, positive" text="+5% depuis le mois dernier" />
+                              <Label fx:id="lblFillingRateVariation" styleClass="stat-variation, positive" text="+5% Since Last Month" />
                            </VBox>
                         </VBox>
                         
@@ -301,13 +302,13 @@
                               <FontAwesomeIconView glyphName="ENVELOPE" size="24" styleClass="card-icon" />
                            </HBox>
                            <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                              <Label styleClass="stat-label" text="Communications envoyées" />
+                              <Label styleClass="stat-label" text="Communications sent" />
                               <Label fx:id="lblTotalCommunications" styleClass="stat-value" text="0">
                                  <font>
                                     <Font name="System Bold" size="36.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblCommunicationsVariation" styleClass="stat-variation, positive" text="+15% depuis le mois dernier" />
+                              <Label fx:id="lblCommunicationsVariation" styleClass="stat-variation, positive" text="+15% Since last Month" />
                            </VBox>
                         </VBox>
                      </children>
@@ -315,13 +316,13 @@
 					                  
 					<!-- Graphiques -->
 					<TabPane styleClass="dashboard-tabs">
-					   <Tab closable="false" text="Aperçu général">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					   <Tab closable="false" text="General overview">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <VBox spacing="20.0">
 					            <HBox spacing="20.0">
 					               <!-- Graphique à gauche: Évolution des inscriptions -->
 					               <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
-					                  <Label styleClass="chart-title" text="Évolution des inscriptions">
+					                  <Label styleClass="chart-title" text="Evolution of registrations">
 					                     <font>
 					                        <Font name="System Bold" size="16.0" />
 					                     </font>
@@ -338,7 +339,7 @@
 					               
 					               <!-- Graphique à droite: Répartition par statut -->
 					               <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
-					                  <Label styleClass="chart-title" text="Répartition des événements par statut">
+					                  <Label styleClass="chart-title" text="Distribution of events by status">
 					                     <font>
 					                        <Font name="System Bold" size="16.0" />
 					                     </font>
@@ -350,7 +351,7 @@
 					            <HBox spacing="20.0">
 					               <!-- Graphique à gauche: Événements par catégorie -->
 					               <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
-					                  <Label styleClass="chart-title" text="Événements par catégorie">
+					                  <Label styleClass="chart-title" text="Events by category">
 					                     <font>
 					                        <Font name="System Bold" size="16.0" />
 					                     </font>
@@ -367,7 +368,7 @@
 					               
 					               <!-- Graphique à droite: Taux de participation par jour de semaine -->
 					               <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
-					                  <Label styleClass="chart-title" text="Taux de participation par jour de semaine">
+					                  <Label styleClass="chart-title" text="Participation rate by weekday">
 					                     <font>
 					                        <Font name="System Bold" size="16.0" />
 					                     </font>
@@ -385,15 +386,15 @@
 					         </VBox>
 					      </ScrollPane>
 					   </Tab>
-					   <Tab closable="false" text="Événements détaillés">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					   <Tab closable="false" text="Detailed events">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <AnchorPane minHeight="0.0" minWidth="0.0">
 					            <!-- Contenu pour l'onglet événements détaillés -->
 					         </AnchorPane>
 					      </ScrollPane>
 					   </Tab>
 					   <Tab closable="false" text="Participants">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <AnchorPane minHeight="0.0" minWidth="0.0">
 					            <!-- Contenu pour l'onglet participants -->
 					         </AnchorPane>
@@ -405,19 +406,19 @@
                   <!-- Liste des événements à venir -->
                   <VBox styleClass="table-container">
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
-                        <Label styleClass="section-title" text="Événements à venir">
+                        <Label styleClass="section-title" text="Upcoming Events">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
-                           <ComboBox fx:id="cbFilterEvents" prefWidth="150.0" promptText="Filtrer par statut" />
-                           <Button fx:id="btnExportEvents" onAction="#handleExportEvents" styleClass="secondary-button" text="Exporter">
+                           <ComboBox fx:id="cbFilterEvents" prefWidth="150.0" promptText="Filter by status" />
+                           <Button fx:id="btnExportEvents" onAction="#handleExportEvents" styleClass="secondary-button" text="Export">
                               <graphic>
                                  <FontAwesomeIconView glyphName="DOWNLOAD" />
                               </graphic>
                            </Button>
-                           <Button fx:id="btnAddEvent" onAction="#handleAddEvent" styleClass="primary-button" text="Nouvel événement">
+                           <Button fx:id="btnAddEvent" onAction="#handleAddEvent" styleClass="primary-button" text="New event">
                               <graphic>
                                  <FontAwesomeIconView glyphName="PLUS" />
                               </graphic>
@@ -428,13 +429,13 @@
                      <TableView fx:id="tableUpcomingEvents" prefHeight="250.0" styleClass="custom-table" VBox.vgrow="ALWAYS">
                         <columns>
                            <TableColumn fx:id="colEventId" maxWidth="60.0" prefWidth="50.0" text="ID" />
-                           <TableColumn fx:id="colEventTitle" prefWidth="250.0" text="Titre" />
+                           <TableColumn fx:id="colEventTitle" prefWidth="250.0" text="Title" />
                            <TableColumn fx:id="colEventDate" prefWidth="150.0" text="Date" />
-                           <TableColumn fx:id="colEventLocation" prefWidth="120.0" text="Lieu" />
-                           <TableColumn fx:id="colEventCategory" prefWidth="120.0" text="Catégorie" />
-                           <TableColumn fx:id="colEventCapacity" prefWidth="90.0" text="Capacité" />
+                           <TableColumn fx:id="colEventLocation" prefWidth="120.0" text="Place" />
+                           <TableColumn fx:id="colEventCategory" prefWidth="120.0" text="Categorie" />
+                           <TableColumn fx:id="colEventCapacity" prefWidth="90.0" text="Capacity" />
                            <TableColumn fx:id="colEventRegistrations" prefWidth="90.0" text="Inscriptions" />
-                           <TableColumn fx:id="colEventFillRate" prefWidth="90.0" text="Remplissage" />
+                           <TableColumn fx:id="colEventFillRate" prefWidth="90.0" text="Filling" />
                            <TableColumn fx:id="colEventStatus" prefWidth="100.0" text="Statut" />
                            <TableColumn fx:id="colEventActions" prefWidth="120.0" text="Actions" />
                         </columns>
@@ -445,12 +446,12 @@
                            <Insets top="10.0" />
                         </padding>
                         <Label fx:id="lblPageInfo" text="Page 1 de 5" />
-                        <Button fx:id="btnPrevPage" onAction="#handlePrevPage" styleClass="pagination-button" text="Précédent">
+                        <Button fx:id="btnPrevPage" onAction="#handlePrevPage" styleClass="pagination-button" text="Previous">
                            <graphic>
                               <FontAwesomeIconView glyphName="CHEVRON_LEFT" />
                            </graphic>
                         </Button>
-                        <Button fx:id="btnNextPage" onAction="#handleNextPage" styleClass="pagination-button" text="Suivant">
+                        <Button fx:id="btnNextPage" onAction="#handleNextPage" styleClass="pagination-button" text="Next">
                            <graphic>
                               <FontAwesomeIconView glyphName="CHEVRON_RIGHT" />
                            </graphic>
@@ -464,7 +465,7 @@
          <!-- Indicateur de chargement -->
          <StackPane fx:id="loadingPane" style="-fx-background-color: rgba(0, 0, 0, 0.5);" visible="false">
             <VBox alignment="CENTER" spacing="15.0">
-               <Label text="Chargement..." textFill="WHITE">
+               <Label text="Loading..." textFill="WHITE">
                   <font>
                      <Font size="18.0" />
                   </font>

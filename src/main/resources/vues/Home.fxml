@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
@@ -44,18 +45,18 @@
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" onAction="#scrollToContact" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" styleClass="login-button" text="Connexion" />
+                  <Button mnemonicParsing="false" styleClass="login-button" text="Login" />
                </children>
             </HBox>
             <StackPane fx:id="welcomeBanne" prefHeight="150.0" prefWidth="200.0" styleClass="welcome-banner">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label styleClass="banner-title" text="Découvrez nos événements" />
-                        <Label styleClass="banner-subtitle" text="Trouvez et inscrivez-vous aux événements qui vous intéressent" />
+                        <Label styleClass="banner-title" text="Discover our events" />
+                        <Label styleClass="banner-subtitle" text="Find and register for events that interest you" />
                         <HBox prefHeight="100.0" prefWidth="200.0" styleClass="search-bar">
                            <children>
-                              <TextField promptText="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                              <TextField promptText="Search for an event..." HBox.hgrow="ALWAYS" />
                               <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/search_icon.png" />
@@ -71,8 +72,8 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                      <children>
-                        <Label styleClass="banner-title" text="Bienvenue, Martin!" />
-                        <Label styleClass="banner-subtitle" text="Vous avez 2 événements à venir" />
+                        <Label styleClass="banner-title" text="welcome, Martin!" />
+                        <Label styleClass="banner-subtitle" text="You have 2 Upcoming Event" />
                      </children>
                   </VBox>
                </children>
@@ -89,27 +90,27 @@
                <children>
                   <VBox fx:id="eventSection" prefHeight="200.0" prefWidth="100.0" styleClass="section">
                      <children>
-                        <Label styleClass="section-title" text="Événements à venir" />
+                        <Label styleClass="section-title" text="Upcoming Event" />
                         <HBox fx:id="eventsToggleGroup" prefHeight="100.0" prefWidth="200.0" spacing="25.0" styleClass="events-container">
                         
                         <!-- Événement 1 -->
                         <VBox styleClass="event-card">
                             <StackPane style="-fx-background-color: #6f42c1;" styleClass="event-image-container">
-                                <Label styleClass="event-image-title" text="Festival de Musique" />
+                                <Label styleClass="event-image-title" text="Music Festival" />
                             </StackPane>
                             <HBox styleClass="event-info">
                                 <VBox styleClass="event-date">
                                     <Label styleClass="event-day" text="15" />
-                                    <Label styleClass="event-month" text="MAI" />
+                                    <Label styleClass="event-month" text="MAY" />
                                 </VBox>
                                 <VBox styleClass="event-details">
-                                    <Label styleClass="event-title" text="Festival de Jazz" />
+                                    <Label styleClass="event-title" text="Jazz Festival " />
                                     <Label styleClass="event-location" text="Paris, France" />
                                 </VBox>
                             </HBox>
                             <HBox styleClass="event-actions">
-                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
-                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="Register" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Details" />
                             </HBox>
                         </VBox>
                         
@@ -117,12 +118,12 @@
                         <!-- Événement 2 -->
                         <VBox styleClass="event-card">
                             <StackPane style="-fx-background-color: #fd7e14;" styleClass="event-image-container">
-                                <Label styleClass="event-image-title" text="Conférence Tech" />
+                                <Label styleClass="event-image-title" text="Conference Tech" />
                             </StackPane>
                             <HBox styleClass="event-info">
                                 <VBox styleClass="event-date">
                                     <Label styleClass="event-day" text="22" />
-                                    <Label styleClass="event-month" text="MAI" />
+                                    <Label styleClass="event-month" text="MAY" />
                                 </VBox>
                                 <VBox styleClass="event-details">
                                     <Label styleClass="event-title" text="IA Summit 2025" />
@@ -130,8 +131,8 @@
                                 </VBox>
                             </HBox>
                             <HBox styleClass="event-actions">
-                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
-                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="Register" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Details" />
                             </HBox>
                         </VBox>
                         
@@ -144,7 +145,7 @@
                             <HBox styleClass="event-info">
                                 <VBox styleClass="event-date">
                                     <Label styleClass="event-day" text="30" />
-                                    <Label styleClass="event-month" text="MAI" />
+                                    <Label styleClass="event-month" text="MAY" />
                                 </VBox>
                                 <VBox styleClass="event-details">
                                     <Label styleClass="event-title" text="UX/UI Workshop" />
@@ -152,8 +153,8 @@
                                 </VBox>
                             </HBox>
                             <HBox styleClass="event-actions">
-                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
-                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Détails" />
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="Register" />
+                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Details" />
                             </HBox>
                         </VBox>     
                         </HBox>
@@ -161,7 +162,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section">
                      <children>
-                        <Label styleClass="section-title" text="Mes événements à Venir" />
+                        <Label styleClass="section-title" text="Upcoming Event" />
                         
                          <VBox spacing="5">
                         <!-- Événement inscrit 1 -->
@@ -171,10 +172,10 @@
                                 <Label styleClass="reg-event-month" text="JUIN" />
                             </VBox>
                             <VBox styleClass="registered-event-info" HBox.hgrow="ALWAYS">
-                                <Label styleClass="reg-event-title" text="Conférence DevOps 2025" />
-                                <Label styleClass="reg-event-details" text="Bordeaux • 10-12 Juin • 9h00" />
+                                <Label styleClass="reg-event-title" text="Conference DevOps 2025" />
+                                <Label styleClass="reg-event-details" text="Bordeaux • 10-12 June • 9h00" />
                             </VBox>
-                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Annuler" />
+                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Cancel" />
                         </HBox>
                         
                         <!-- Événement inscrit 2 -->
@@ -184,10 +185,10 @@
                                 <Label styleClass="reg-event-month" text="JUIN" />
                             </VBox>
                             <VBox styleClass="registered-event-info" HBox.hgrow="ALWAYS">
-                                <Label styleClass="reg-event-title" text="Atelier de Design Thinking" />
+                                <Label styleClass="reg-event-title" text="Design Thinking Workshop" />
                                 <Label styleClass="reg-event-details" text="Paris • 17 Juin • 14h00" />
                             </VBox>
-                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Annuler" />
+                            <Button onAction="#cancelRegistration" styleClass="cancel-button" text="Cancel" />
                         </HBox>
                     </VBox>
                      </children>
@@ -197,43 +198,52 @@
                    <!-- Section About  -->
 					<VBox fx:id="aboutSection" styleClass="section about-section">
 					    <HBox styleClass="section-header">
-<!-- 					        <FontIcon iconLiteral="fas-info-circle" styleClass="section-icon" /> -->
-					        <Label styleClass="section-title" text="À propos" />
+					      
+					      <FontAwesomeIconView glyphName="INFO_CIRCLE" styleClass="section-icon" />
+					             
+<!-- 					     <FontIcon iconLiteral="fas-info-circle" styleClass="section-icon" /> -->
+					        <Label styleClass="section-title" text="About Us" />
 					    </HBox>
 					    
 					    <VBox styleClass="about-content">
 					        <Label styleClass="about-intro" wrapText="true" 
-					               text="Notre plateforme vous permet de découvrir et de vous inscrire à une multitude d'événements adaptés à vos centres d'intérêt. En quelques clics, explorez une sélection riche et diversifiée de rencontres, ateliers, conférences et activités près de chez vous." />
+					               text="Our platform allows you to discover and register for a multitude of events tailored to your interests. In just a few clicks, explore a rich and diverse selection of meetings, workshops, conferences, and activities near you." />
 					        
 					        <HBox styleClass="features-container" spacing="15">
 					            <VBox styleClass="feature-item">
+					                   <FontAwesomeIconView glyphName="SEARCH" styleClass="section-icon" />
+					            
 <!-- 					                <FontIcon iconLiteral="fas-search" styleClass="feature-icon" /> -->
-					                <Label styleClass="feature-title" text="Découvrir" />
+					                <Label styleClass="feature-title" text="Discover" />
 					                <Label styleClass="feature-desc" wrapText="true" 
-					                       text="Explorez des événements locaux adaptés à vos intérêts grâce à notre moteur de recherche intelligent et nos recommandations personnalisées" />
+					                       text="Explore local events tailored to your interests with our intelligent search engine and personalized recommendations." />
 					            </VBox>
 					            
 					            <VBox styleClass="feature-item">
+					            	<FontAwesomeIconView glyphName="CALENDAR-CHECK" styleClass="section-icon" />
+					            
 <!-- 					                <FontIcon iconLiteral="fas-calendar-check" styleClass="feature-icon" /> -->
-					                <Label styleClass="feature-title" text="S'inscrire" />
+					                <Label styleClass="feature-title" text="Register" />
 					                <Label styleClass="feature-desc" wrapText="true" 
-					                       text="Réservez vos places en quelques clics avec notre système de paiement sécurisé et recevez immédiatement vos confirmations par email" />
+					                       text="Book your tickets in just a few clicks with our secure payment system and receive your confirmations immediately by email." />
 					            </VBox>
 					            
 					            <VBox styleClass="feature-item">
+					                <FontAwesomeIconView glyphName="USERS" styleClass="section-icon" />
+					            
 <!-- 					                <FontIcon iconLiteral="fas-users" styleClass="feature-icon" /> -->
 					                <Label styleClass="feature-title" text="Participer" />
 					                <Label styleClass="feature-desc" wrapText="true" 
-					                       text="Rejoignez une communauté passionnée, partagez vos expériences et échangez avec d'autres participants avant, pendant et après les événements" />
+					                       text="Join a passionate community, share your experiences and interact with other participants before, during and after the events" />
 					            </VBox>
 					        </HBox>
 					        
 					        <VBox styleClass="about-mission" spacing="10">
-					            <Label styleClass="mission-title" text="Notre mission" />
+					            <Label styleClass="mission-title" text="Our mission" />
 					            <Label styleClass="mission-text" wrapText="true" 
-					                   text="Depuis notre création en 2020, nous nous engageons à faciliter l'accès à la culture et aux loisirs pour tous. Notre équipe travaille sans relâche pour vous proposer des événements de qualité, soigneusement sélectionnés pour répondre à vos attentes et enrichir votre quotidien." />
+					                   text="Since our creation in 2020, we have been committed to facilitating access to culture and leisure for all. Our team works tirelessly to offer you quality events, carefully selected to meet your expectations and enrich your daily life." />
 					            <Label styleClass="mission-text" wrapText="true"
-					                   text="Avec plus de 500 partenaires à travers le pays et une communauté de plus de 50 000 utilisateurs actifs, nous sommes fiers de contribuer à créer des connexions significatives entre les personnes partageant les mêmes passions." />
+					                   text="With over 500 partners across the country and a community of over 50,000 active users, we’re proud to help create meaningful connections between like-minded people." />
 					        </VBox>
 					        
 					        <HBox styleClass="action-buttons" spacing="15">
@@ -245,7 +255,7 @@
                  <!-- Section Contact  -->
   
 				  <VBox fx:id="contactSection" styleClass="contact-section" >
-				    <Label styleClass="form-title" text="Envoyez-nous un message" />
+				    <Label styleClass="form-title" text="Sent-us a message" />
 				    <!-- Prénom -->
 				    <HBox alignment="CENTER_LEFT" spacing="10" />
 				   <GridPane hgap="15.0" styleClass="form-grid" vgap="15.0">
@@ -298,7 +308,7 @@
    </center>
    <bottom>
         <HBox styleClass="footer">
-            <Label styleClass="footer-text" text="© 2025 ÉvénementsPro - Tous droits réservés" />
+            <Label styleClass="footer-text" text="© 2025 EvenementPro - All rights reserved" />
         </HBox>
     </bottom>
 </BorderPane>
