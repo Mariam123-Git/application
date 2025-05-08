@@ -57,40 +57,37 @@ public class LoginController implements Initializable{
     // Event handler for the Login button click
     @FXML
     private void handleLogin(MouseEvent event) {
-    	String email = emailField.getText();
+        String email = emailField.getText();
         String password = passwordField.getText();
-  	  //System.out.println("dedans 1");
 
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
-            return; 
+            return;
         }
-        //System.out.println("dedans 2");
-        if (AuthService.userExists(email)) {
-        //	System.out.println("dedans 3");
-            if (AuthService.authenticate(email, password)) {
-                showAlert("Succès", "Connexion réussie !");
-                goToHome();
-            } else {
-                showAlert("Erreur", "Mot de passe incorrect.");
-            }
+
+        User user = AuthService.authenticate(email, password);
+        if (user != null) {
+            showAlert("Succès", "Connexion réussie !");
+            goToHome(user);
         } else {
-            showAlert("Erreur", "Vueillez créer un Compte !");
+            showAlert("Erreur", "Email ou mot de passe incorrect.");
         }
     }
 
-    private void goToHome() {
-		// TODO Auto-generated method stub
-    	 try {
-    	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
-    	        App.stage.setScene(new Scene(root));
-    	        App.stage.sizeToScene();   //pour center l'élément
-    	        App.stage.centerOnScreen();//pour centrer l'élément
-    	    } catch (IOException e) {
-    	        e.printStackTrace();
-    	    }
-	}
-
+    private void goToHome(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/Home.fxml"));
+            Parent root = loader.load();
+            
+            HomeController homeController = loader.getController();
+            homeController.setUserData(user.getId(), user.getEmail());
+            
+            App.stage.setScene(new Scene(root));
+            App.stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     // Event handler for "Forget Password?" label click
     @FXML
     private void handleForgetPassword(MouseEvent event) {

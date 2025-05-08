@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane fx:id="mainLayout" prefHeight="700.0" prefWidth="1000.0" styleClass="main-layout" stylesheets="@../styles/scheduleviewer.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.ScheduleViewerController">
+    <top>
+       
+        <VBox spacing="10" styleClass="header-container">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+            
+            <!-- Titre de la page -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Region styleClass="calendar-icon" prefWidth="32" prefHeight="32" />
+                <Text styleClass="page-title" text="Planning des Événements" />
+            </HBox>
+            
+            <!-- Barre de filtres -->
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="filters-bar">
+                <DatePicker fx:id="startDatePicker" promptText="Date de début" />
+                <DatePicker fx:id="endDatePicker" promptText="Date de fin" />
+                <ComboBox fx:id="categorieComboBox" prefWidth="180.0" promptText="Catégorie" />
+                <TextField fx:id="searchField" promptText="Rechercher un événement..." HBox.hgrow="ALWAYS" />
+                <Button fx:id="searchButton" styleClass="search-button" text="Search">
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <!-- Section principale avec onglets pour différentes vues -->
+        <TabPane fx:id="viewTabPane" styleClass="schedule-tabs">
+            <!-- Vue Calendrier -->
+            <Tab text="Calendrier" closable="false">
+                <BorderPane>
+                    <top>
+                        <HBox alignment="CENTER" spacing="15" styleClass="calendar-navigation">
+                            <Button fx:id="prevMonthBtn" styleClass="nav-button">
+                                <graphic>
+                                    <Region styleClass="prev-icon" prefWidth="16" prefHeight="16" />
+                                </graphic>
+                            </Button>
+                            <Label fx:id="monthYearLabel" styleClass="month-year-label" text="Mai 2025" />
+                            <Button fx:id="nextMonthBtn" styleClass="nav-button">
+                                <graphic>
+                                    <Region styleClass="next-icon" prefWidth="16" prefHeight="16" />
+                                </graphic>
+                            </Button>
+                            <ComboBox fx:id="moisComboBox" prefWidth="150.0" promptText="Mois" />
+                            <ComboBox fx:id="anneeComboBox" prefWidth="150.0" promptText="Année" />
+                            
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Button fx:id="todayBtn" styleClass="today-button" text="Aujourd'hui" />
+                        </HBox>
+                    </top>
+                    
+                    <center>
+                        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="content-scroll">
+                            <GridPane fx:id="calendarGrid" styleClass="calendar-grid" hgap="1" vgap="1">
+                                <!-- Le contenu du calendrier sera généré dynamiquement -->
+                            </GridPane>
+                        </ScrollPane>
+                    </center>
+                </BorderPane>
+            </Tab>
+            
+            <!-- Vue Liste -->
+            <Tab text="Liste" closable="false">
+                <VBox spacing="0">
+                    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="list-header">
+                        <Label text="Événements à venir" styleClass="section-title" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="sortComboBox" prefWidth="180.0" promptText="Trier par" />
+                    </HBox>
+                    
+                    <ScrollPane fitToWidth="true" styleClass="events-scroll">
+                        <VBox fx:id="eventsListContainer" spacing="10" styleClass="events-list">
+                            <!-- Les événements seront ajoutés dynamiquement ici -->
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+            </Tab>
+            
+            <!-- Vue Agenda -->
+            <Tab text="Agenda" closable="false">
+                <VBox spacing="0">
+                    <HBox alignment="CENTER" spacing="15" styleClass="agenda-navigation">
+                        <Button fx:id="prevWeekBtn" styleClass="nav-button">
+                            <graphic>
+                                <Region styleClass="prev-icon" prefWidth="16" prefHeight="16" />
+                            </graphic>
+                        </Button>
+                        <Label fx:id="weekLabel" styleClass="week-label" text="Semaine du 5 au 11 mai 2025" />
+                        <Button fx:id="nextWeekBtn" styleClass="nav-button">
+                            <graphic>
+                                <Region styleClass="next-icon" prefWidth="16" prefHeight="16" />
+                            </graphic>
+                        </Button>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="currentWeekBtn" styleClass="today-button" text="Cette semaine" />
+                    </HBox>
+                    
+                    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="content-scroll" VBox.vgrow="ALWAYS">
+                        <GridPane fx:id="weekGrid" styleClass="week-grid" hgap="1" vgap="0">
+                            <!-- Le contenu de la semaine sera généré dynamiquement -->
+                        </GridPane>
+                    </ScrollPane>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+    
+    <bottom>
+        <!-- Barre de statut avec informations récapitulatives -->
+        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="status-bar">
+            <padding>
+                <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+            </padding>
+            
+            <Label fx:id="totalEventsLabel" text="Total: 0 événements" />
+            <Separator orientation="VERTICAL" />
+            <Label fx:id="upcomingEventsLabel" text="À venir: 0 événements" />
+            <Separator orientation="VERTICAL" />
+            <Label fx:id="categoryStatsLabel" text="3 catégories" />
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <Button fx:id="exportBtn" styleClass="export-button" text="Exporter">
+            </Button>
+            <Button fx:id="settingsBtn" styleClass="settings-button">
+              
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

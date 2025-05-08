@@ -109,8 +109,13 @@
                                 </VBox>
                             </HBox>
                             <HBox styleClass="event-actions">
+<<<<<<< HEAD
                                 <Button onAction="#handleEventRegistration" styleClass="primary-button" text="Register" />
                                 <Button onAction="#showEventDetails" styleClass="secondary-button" text="Details" />
+=======
+                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
+                                <Button onAction="#showEventDetails" userData="1" styleClass="secondary-button" text="Détails" />
+>>>>>>> cc5cda271dcfad19f260522ac1d5190a04c1d5de
                             </HBox>
                         </VBox>
                         
