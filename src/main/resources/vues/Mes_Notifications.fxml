@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="841.0" stylesheets="@../styles/Dashboard_Participant.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.MesNotificationsController">
+   <children>
+      <GridPane fx:id="headerPane" alignment="CENTER" prefHeight="84.0" prefWidth="775.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.4000244140625" minWidth="10.0" prefWidth="187.20005187988284" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.1999481201171" minWidth="10.0" prefWidth="655.1999481201171" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="LogoImage" fitHeight="83.0" fitWidth="117.0" onMouseClicked="#goToHome" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../images/logo-gris.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="DeconnexionButton" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#Logout" text="Deconnexion" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+      <VBox prefHeight="86.0" prefWidth="842.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="106.0" prefWidth="840.0" text="Mes Notifications" />
+         </children>
+      </VBox>
+      <ScrollPane fitToWidth="true" prefHeight="300" prefWidth="400">
+	    <content>
+	        <VBox fx:id="notificationContainer" spacing="10" prefWidth="380">
+	            <padding>
+	                <Insets top="10" right="10" bottom="10" left="10" />
+	            </padding>
+	        </VBox>
+	    </content>
+	</ScrollPane>
+
+   </children>
+</VBox>

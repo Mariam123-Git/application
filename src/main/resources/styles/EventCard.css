@@ -1,0 +1,56 @@
+/* Style de la carte */
+#CardEvent {
+    
+    -fx-padding: 10;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+	-fx-border-color: #cccccc;
+	-fx-border-width: 2;
+	-fx-border-radius: 5;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 2);
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0.1, 0, 2);
+}
+
+/* Titre centré et en gras */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #343a40;
+}
+
+/* Image centrée avec bord arrondi et ombre */
+#EventImage {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0.1, 0, 2);
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+    -fx-margin: 20px;
+    -fx-fit-width: true;
+    -fx-preserve-ratio: true;
+	-fx-alignment: center;
+	-fx-halignment: center;
+	-fx-valignment: center;
+}
+
+/* Boutons uniformisés */
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-padding: 6 16 6 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
+
+/* Pour le bouton "Se désinscrire" en rouge */
+#DesinscriptionButton {
+    -fx-background-color: #dc3545;
+}
+
+#DesinscriptionButton:hover {
+    -fx-background-color: #c82333;
+}
