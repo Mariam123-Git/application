@@ -394,4 +394,23 @@ public class EventDetailController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+private void viewParticipants(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/ParticipantsList.fxml"));
+        Parent root = loader.load();
+        
+        ParticipantsListController controller = loader.getController();
+        controller.initData(eventId, eventTitle.getText());
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Participants List - " + eventTitle.getText());
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        showAlert("Error", "Failed to load participants view: " + e.getMessage(), Alert.AlertType.ERROR);
+    }
+}
 }
