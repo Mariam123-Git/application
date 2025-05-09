@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.application.ParticipantsListController"
+            stylesheets="@../styles/home.css"
+            prefWidth="800" prefHeight="600">
+
+    <top>
+        <VBox styleClass="navbar">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0">
+                <children>
+                    <ImageView fitHeight="50.0" fitWidth="70.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Logos.png"/>
+                        </image>
+                    </ImageView>
+                    <Label styleClass="logo" text="EventPro"/>
+                    <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="nav-links">
+                        <children>
+                            <Button styleClass="nav-link" text="Home"/>
+                            <Button styleClass="nav-link" text="Event"/>
+                            <Button styleClass="nav-link" text="About"/>
+                            <Button styleClass="nav-link" text="Contact"/>
+                        </children>
+                    </HBox>
+                </children>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+            <Label fx:id="eventTitleLabel" styleClass="section-title" text="Participants List"/>
+            
+            <TableView fx:id="participantsTable" styleClass="participants-table">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" styleClass="column-id" prefWidth="80"/>
+                    <TableColumn fx:id="nomColumn" text="Name" styleClass="column-nom" prefWidth="200"/>
+                    <TableColumn fx:id="prenomColumn" text="First Name" styleClass="column-prenom" prefWidth="200"/>
+                    <TableColumn fx:id="emailColumn" text="Email" styleClass="column-email" prefWidth="300"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox styleClass="footer" prefHeight="40">
+            <Label styleClass="footer-text" text="© 2025 EventPro - All rights reserved"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Back" onAction="#goBack" styleClass="back-button"/>
+        </HBox>
+    </bottom>
+</BorderPane>
