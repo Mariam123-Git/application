@@ -3,7 +3,6 @@ package application.application;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +13,33 @@ public class EvenementService {
 
     public List<Evenement> getAllEvents() {
         List<Evenement> events = new ArrayList<>();
-        String sql = "SELECT e.id_evenement, e.titre, e.description, e.date_debut, e.date_fin, " +
-                    "e.lieu, e.adresse, e.nb_places_max, e.image_url, c.nom as categorie, e.statut " +
-                    "FROM evenement e " +
-                    "JOIN categorie c ON e.id_categorie = c.id_categorie";
+        String sql = "SELECT e.ID_EVENEMENT, e.TITRE, e.DESCRIPTION, e.DATE_DEBUT, e.DATE_FIN, " +
+                     "e.Ville, e.ADRESSE, e.NB_PLACES_MAX, e.IMAGE, c.nom as categorie, e.date_creation " +
+                     "FROM evenement e " +
+                     "JOIN categorie c ON e.ID_CATEGORIE = c.id_categorie";
 
         try (Connection conn = connect();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                LocalDateTime debut = rs.getTimestamp("date_debut").toLocalDateTime();
-                LocalDateTime fin = rs.getTimestamp("date_fin").toLocalDateTime();
-                
+                LocalDateTime debut = rs.getTimestamp("DATE_DEBUT").toLocalDateTime();
+                LocalDateTime fin = rs.getTimestamp("DATE_FIN").toLocalDateTime();
+                LocalDateTime dateCreation = rs.getTimestamp("date_creation").toLocalDateTime();
+
                 events.add(new Evenement(
-                    rs.getInt("id_evenement"),
-                    rs.getString("titre"),
-                    rs.getString("description"),
+                    rs.getInt("ID_EVENEMENT"),
+                    rs.getString("TITRE"),
+                    rs.getString("DESCRIPTION"),
                     debut.toLocalDate(),
                     debut.toLocalTime(),
                     fin.toLocalTime(),
-                    rs.getString("lieu"),
-                    rs.getString("adresse"),
-                    rs.getInt("nb_places_max"),
-                    rs.getString("image_url"),
+                    rs.getString("Ville"),
+                    rs.getString("ADRESSE"),
+                    rs.getInt("NB_PLACES_MAX"),
+                    rs.getBytes("IMAGE"),
                     rs.getString("categorie"),
-                    rs.getString("statut")
+                    dateCreation.toLocalDate()
                 ));
             }
         } catch (SQLException e) {
@@ -69,11 +69,11 @@ public class EvenementService {
     public List<Evenement> getFilteredEvents(LocalDate dateDebut, LocalDate dateFin, String categorie) {
         List<Evenement> events = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
-            "SELECT e.id_evenement, e.titre, e.description, e.date_debut, e.date_fin, " +
-            "e.lieu, e.adresse, e.nb_places_max, e.image_url, c.nom as categorie, e.statut " +
+            "SELECT e.ID_EVENEMENT, e.TITRE, e.DESCRIPTION, e.DATE_DEBUT, e.DATE_FIN, " +
+            "e.Ville, e.ADRESSE, e.NB_PLACES_MAX, e.IMAGE, c.nom as categorie, e.date_creation " +
             "FROM evenement e " +
-            "JOIN categorie c ON e.id_categorie = c.id_categorie " +
-            "WHERE e.date_debut BETWEEN ? AND ?"
+            "JOIN categorie c ON e.ID_CATEGORIE = c.id_categorie " +
+            "WHERE e.DATE_DEBUT BETWEEN ? AND ?"
         );
 
         if (categorie != null && !categorie.isEmpty()) {
@@ -85,29 +85,30 @@ public class EvenementService {
 
             ps.setTimestamp(1, Timestamp.valueOf(dateDebut.atStartOfDay()));
             ps.setTimestamp(2, Timestamp.valueOf(dateFin.atTime(23, 59, 59)));
-            
+
             if (categorie != null && !categorie.isEmpty()) {
                 ps.setString(3, categorie);
             }
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                LocalDateTime debut = rs.getTimestamp("date_debut").toLocalDateTime();
-                LocalDateTime fin = rs.getTimestamp("date_fin").toLocalDateTime();
-                
+                LocalDateTime debut = rs.getTimestamp("DATE_DEBUT").toLocalDateTime();
+                LocalDateTime fin = rs.getTimestamp("DATE_FIN").toLocalDateTime();
+                LocalDateTime dateCreation = rs.getTimestamp("date_creation").toLocalDateTime();
+
                 events.add(new Evenement(
-                    rs.getInt("id_evenement"),
-                    rs.getString("titre"),
-                    rs.getString("description"),
+                    rs.getInt("ID_EVENEMENT"),
+                    rs.getString("TITRE"),
+                    rs.getString("DESCRIPTION"),
                     debut.toLocalDate(),
                     debut.toLocalTime(),
                     fin.toLocalTime(),
-                    rs.getString("lieu"),
-                    rs.getString("adresse"),
-                    rs.getInt("nb_places_max"),
-                    rs.getString("image_url"),
+                    rs.getString("Ville"),
+                    rs.getString("ADRESSE"),
+                    rs.getInt("NB_PLACES_MAX"),
+                    rs.getBytes("IMAGE"),
                     rs.getString("categorie"),
-                    rs.getString("statut")
+                    dateCreation.toLocalDate()
                 ));
             }
         } catch (SQLException e) {

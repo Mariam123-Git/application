@@ -7,48 +7,52 @@ public class Evenement {
     private int id;
     private String titre;
     private String description;
-    private LocalDate date;
+    private LocalDate dateDebut;
     private LocalTime heureDebut;
     private LocalTime heureFin;
-    private String lieu;
+    private String ville;               // ✅ Ajout de ville
     private String adresse;
     private Integer nbPlacesMax;
-    private String imageUrl;
+    private byte[] image;
     private String categorie;
-    private String statut;
+    private LocalDate dateCreation;
 
-    public Evenement(int id, String titre, String description, 
-                    LocalDate date, LocalTime heureDebut, LocalTime heureFin,
-                    String lieu, String adresse, Integer nbPlacesMax, 
-                    String imageUrl, String categorie, String statut) {
+    public Evenement(int id, String titre, String description,
+                     LocalDate dateDebut, LocalTime heureDebut, LocalTime heureFin,
+                     String ville, String adresse, Integer nbPlacesMax, byte[] image,
+                     String categorie, LocalDate dateCreation) {
         this.id = id;
         this.titre = titre;
         this.description = description;
-        this.date = date;
+        this.dateDebut = dateDebut;
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
-        this.lieu = lieu;
+        this.ville = ville;            
         this.adresse = adresse;
         this.nbPlacesMax = nbPlacesMax;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.categorie = categorie;
-        this.statut = statut;
+        this.dateCreation = dateCreation;
     }
 
-    // Getters
+    // ✅ Getters
     public int getId() { return id; }
     public String getTitre() { return titre; }
     public String getDescription() { return description; }
-    public LocalDate getDate() { return date; }
+    public LocalDate getDateDebut() { return dateDebut; }
     public LocalTime getHeureDebut() { return heureDebut; }
     public LocalTime getHeureFin() { return heureFin; }
-    public String getLieu() { return lieu; }
+    public String getVille() { return ville; }              
     public String getAdresse() { return adresse; }
     public Integer getNbPlacesMax() { return nbPlacesMax; }
-    public String getImageUrl() { return imageUrl; }
+    public byte[] getImage() { return image; }
     public String getCategorie() { return categorie; }
-    public String getStatut() { return statut; }
-    
+    public LocalDate getDateCreation() { return dateCreation; }
+    public LocalDate getDate() {
+        return dateDebut;
+    }
+
+
     // Pour compatibilité avec le code existant
     public LocalTime getHeure() { return heureDebut; }
 }

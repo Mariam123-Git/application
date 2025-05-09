@@ -10,19 +10,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
@@ -51,6 +58,25 @@ public class ScheduleViewerController {
     @FXML private TextField searchField;
     @FXML private TabPane viewTabPane;
     @FXML private Button searchButton;
+ 
+    @FXML
+    private StackPane welcomeBanner;
+    
+    @FXML
+    private HBox eventsToggleGroup;
+    
+    @FXML 
+    private VBox homeSection;
+    @FXML 
+    private VBox eventSection;
+    @FXML 
+    private VBox contactSection;
+    @FXML 
+    private VBox aboutSection;
+    @FXML 
+    private ScrollPane scrollPane; 
+    @FXML
+    private ComboBox<String> subjectComboBox;
 
     // Calendar view
     @FXML private GridPane calendarGrid;
@@ -100,19 +126,133 @@ public class ScheduleViewerController {
     private final Locale locale = Locale.FRENCH;
     private final WeekFields weekFields = WeekFields.of(locale);
 
-    // --- Initialization ---
+  
+    private int currentUserId;
+    private String currentUserEmail;
+
+    public void setUserData(int userId, String userEmail) {
+        this.currentUserId = userId;
+        this.currentUserEmail = userEmail;
+    }
+    /**
+     * Naviguer vers la page d'accueil
+     * @param event L'événement de clic
+     */
+    
+    
+    @FXML
+    public void goToHome(ActionEvent event) {
+    	try {
+            Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
+            Scene scene = new Scene(root);
+            // Cette ligne évite les problèmes d'injection FXML
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorAlert("Erreur de navigation", "Impossible de charger la page du planning.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Naviguer vers la page des événements
+     * @param event L'événement de clic
+     */
+    @FXML
+    public void goToEvents(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/application/views/events.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) welcomeBanner.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorAlert("Erreur de navigation", "Impossible de charger la page des événements.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Naviguer vers la page À propos
+     * @param event L'événement de clic
+     */
+    @FXML
+    public void goToAbout(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/application/views/about.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) welcomeBanner.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorAlert("Erreur de navigation", "Impossible de charger la page À propos.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Naviguer vers la page de contact
+     * @param event L'événement de clic
+     */
+    @FXML
+    public void goToContact(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/application/views/contact.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) welcomeBanner.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorAlert("Erreur de navigation", "Impossible de charger la page de contact.");
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Afficher une alerte d'information
+     * @param title Le titre de l'alerte
+     * @param message Le message à afficher
+     */
+    private void showInfoAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    /**
+     * Afficher une alerte d'erreur
+     * @param title Le titre de l'alerte
+     * @param message Le message d'erreur à afficher
+     */
+    private void showErrorAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+ 
+   
+
     @FXML
     public void initialize() {
+       
+           
+  
         // Initialize service
         evenementService = new EvenementService();
         allEvents = FXCollections.observableArrayList();
         filteredEvents = FXCollections.observableArrayList();
         
-        // Initialize view dates
         currentYearMonth = YearMonth.from(LocalDate.now());
         currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         
-        // Setup category style mapping
+      
         setupCategoryStyles();
         
         // Initialize components

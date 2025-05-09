@@ -24,7 +24,7 @@
             <!-- Overlay de gradient amélioré pour un effet cinématographique -->
             <StackPane styleClass="image-overlay"/>
             
-            <!-- Conteneur du contenu d'en-tête avec animation subtile -->
+        
             <VBox alignment="BOTTOM_LEFT" spacing="15" styleClass="header-content">
                 <padding>
                     <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
@@ -40,20 +40,16 @@
                     </effect>
                 </Text>
                 
-                <!-- Informations clés avec séparateur élégant -->
                 <HBox spacing="12" alignment="CENTER_LEFT" styleClass="header-info-container">
                     <Label fx:id="dateValue" styleClass="header-info" text="Date de l'événement"/>
                     <Label styleClass="header-separator" text="•"/>
                     <Label fx:id="lieuValue" styleClass="header-info" text="Lieu de l'événement"/>
                 </HBox>
                 
-                <!-- Bouton d'inscription au design moderne -->
-                     <Button fx:id="registerBtn" onAction="#registerForEvent" styleClass="register-button" text="S'inscrire à l'événement"/>
-                
- 
+                  
             </VBox>
-            
-            <!-- Badge de statut avec positionnement amélioré -->
+             
+         
             <HBox StackPane.alignment="TOP_RIGHT">
                 <padding>
                     <Insets top="25.0" right="25.0" />
@@ -69,13 +65,13 @@
                     <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
                 </padding>
                 
-                <!-- Carte d'informations principales avec design modernisé -->
+            
                 <VBox spacing="25" styleClass="info-section card">
                     <HBox alignment="CENTER_LEFT" spacing="15">
                         <Region styleClass="info-icon" prefWidth="24" prefHeight="24" />
-                        <Label styleClass="section-title" text="Informations générales" />
+                        <Label styleClass="section-title" text="General informations" />
                         <Region HBox.hgrow="ALWAYS" />
-                        <Label fx:id="placesValue" styleClass="capacity-badge" text="20 places disponibles" />
+                        <Label fx:id="placesValue" styleClass="capacity-badge" text="20 seats available" />
                     </HBox>
                     
                     <Separator styleClass="section-separator" />
@@ -96,37 +92,37 @@
                         <!-- Lieu avec icône -->
                         <HBox alignment="CENTER_LEFT" spacing="10" GridPane.rowIndex="0" GridPane.columnIndex="0">
                             <Region styleClass="location-icon" prefWidth="16" prefHeight="16" />
-                            <Label styleClass="info-label" text="Lieu" />
+                            <Label styleClass="info-label" text="Location" />
                         </HBox>
-                        <Label fx:id="lieuDetailValue" styleClass="info-value" text="Lieu de l'événement" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                        <Label fx:id="lieuDetailValue" styleClass="info-value" text="Event location" GridPane.rowIndex="0" GridPane.columnIndex="1" />
                         
                         <!-- Adresse avec icône -->
                         <HBox alignment="CENTER_LEFT" spacing="10" GridPane.rowIndex="1" GridPane.columnIndex="0">
                             <Region styleClass="address-icon" prefWidth="16" prefHeight="16" />
-                            <Label styleClass="info-label" text="Adresse" />
+                            <Label styleClass="info-label" text="Address" />
                         </HBox>
-                        <Label fx:id="adresseValue" styleClass="info-value" text="Adresse de l'événement" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        <Label fx:id="adresseValue" styleClass="info-value" text="Event Address" GridPane.rowIndex="1" GridPane.columnIndex="1" />
                         
                         <!-- Organisateur avec icône -->
                         <HBox alignment="CENTER_LEFT" spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="0">
                             <Region styleClass="org-icon" prefWidth="16" prefHeight="16" />
-                            <Label styleClass="info-label" text="Organisé par" />
+                            <Label styleClass="info-label" text="Organized by" />
                         </HBox>
-                        <Label fx:id="orgValue" styleClass="info-value" text="Nom de l'organisateur" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                        <Label fx:id="orgValue" styleClass="info-value" text="Organizer's name" GridPane.rowIndex="2" GridPane.columnIndex="1" />
                         
                         <!-- Capacité avec icône -->
                         <HBox alignment="CENTER_LEFT" spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="0">
                             <Region styleClass="capacity-icon" prefWidth="16" prefHeight="16" />
-                            <Label styleClass="info-label" text="Capacité totale" />
+                            <Label styleClass="info-label" text="Total capacity" />
                         </HBox>
-                        <Label fx:id="capacityValue" styleClass="info-value" text="Nombre de places" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                        <Label fx:id="capacityValue" styleClass="info-value" text="Number of seats" GridPane.rowIndex="3" GridPane.columnIndex="1" />
                         
                         <!-- Date de création avec icône -->
                         <HBox alignment="CENTER_LEFT" spacing="10" GridPane.rowIndex="4" GridPane.columnIndex="0">
                             <Region styleClass="date-icon" prefWidth="16" prefHeight="16" />
-                            <Label styleClass="info-label" text="Créé le" />
+                            <Label styleClass="info-label" text="Created on" />
                         </HBox>
-                        <Label fx:id="creationValue" styleClass="info-value" text="Date de création" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                        <Label fx:id="creationValue" styleClass="info-value" text="Creation date" GridPane.rowIndex="4" GridPane.columnIndex="1" />
                     </GridPane>
                 </VBox>
                 
@@ -145,17 +141,22 @@
         </ScrollPane>
     </center>
     <bottom>
-        <HBox fx:id="actionsBox" alignment="CENTER_RIGHT" spacing="20" styleClass="actions-box">
-            <padding>
-                <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
-            </padding>
-            
-            <Button fx:id="backBtn" onAction="#goBack" styleClass="back-button" text="Retour à l'accueil">
-                <graphic>
-                    <Region styleClass="back-icon" prefWidth="16" prefHeight="16" />
-                </graphic>
-            </Button>
-          
-        </HBox>
+       <HBox fx:id="actionsBox" alignment="CENTER_LEFT" spacing="20" styleClass="actions-box">
+    <padding>
+        <Insets bottom="25.0" left="40.0" right="40.0" top="25.0" />
+    </padding>
+    
+  
+    <Button fx:id="backBtn" onAction="#goBack" styleClass="back-button" text="Back to home">
+        <graphic>
+            <Region styleClass="back-icon" prefWidth="16" prefHeight="16" />
+        </graphic>
+    </Button>
+    
+
+    <Pane HBox.hgrow="ALWAYS" />
+    
+    <Button fx:id="registerBtn" onAction="#registerForEvent" styleClass="register-button" text="Register for the event"/>
+</HBox>
     </bottom>
 </BorderPane>

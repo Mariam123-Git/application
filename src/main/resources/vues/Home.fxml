@@ -40,8 +40,10 @@
                      <children>
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Home"    onAction="#scrollToHome" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Event"   onAction="#scrollToEvent" />
+                         <Button mnemonicParsing="false" styleClass="nav-link" text="schedule" onAction="#gotoschedule" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="About"   onAction="#scrollToAbout" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" onAction="#scrollToContact" />
+                      
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" styleClass="login-button" text="Connexion" />

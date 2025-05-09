@@ -43,6 +43,7 @@ public class HomeController {
     private ScrollPane scrollPane; // le scroll principal
     @FXML
     private ComboBox<String> subjectComboBox;
+ 
     
     // ID de l'utilisateur actuellement connecté (à remplacer par votre système d'authentification)
   // Utilisez une valeur par défaut pour les tests
@@ -91,6 +92,22 @@ public class HomeController {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    public void gotoschedule(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/vues/ScheduleViewer.fxml"));
+            Scene scene = new Scene(root);
+            // Cette ligne évite les problèmes d'injection FXML
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showErrorAlert("Erreur de navigation", "Impossible de charger la page du planning.");
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * Naviguer vers la page À propos
@@ -290,4 +307,5 @@ public class HomeController {
     private void scrollToContact() {
 		scrollToNode(contactSection);
     }
+	
 }
