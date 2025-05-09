@@ -133,7 +133,7 @@ public class EventDetailController {
         // Directement créer l'inscription sans demander des informations supplémentaires
         createInscription();
     }
-
+    
     private void loadEventDetails() {
         // Requête corrigée pour correspondre à la structure de la BDD
         String sql = "SELECT e.*, u.USERNAME AS organisateur FROM evenement e " +

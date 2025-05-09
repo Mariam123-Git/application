@@ -78,6 +78,10 @@
     -fx-pref-width: 250px;
     -fx-effect: dropshadow(three-pass-box, -shadow-color, 10, 0, 5, 0);
 }
+.side-label {
+	    -fx-text-fill: white;
+	
+}
 
 .logo-container {
     -fx-padding: 20px 0;
