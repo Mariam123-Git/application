@@ -105,7 +105,9 @@
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="CALENDAR" size="16" />
+
                      <Label styleClass="side-label" text="Events" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -114,7 +116,9 @@
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="PLUS_CIRCLE" size="16" />
+
                      <Label styleClass="side-label" text="Create an Event" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -142,6 +146,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="BAR_CHART" size="16" />
                      <Label styleClass="side-label" text="Reports" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -150,7 +155,9 @@
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="TAGS" size="16" />
+
                      <Label styleClass="side-label" text="Categories" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -165,7 +172,9 @@
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="COG" size="16" />
+
                      <Label styleClass="side-label" text="settings" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -174,7 +183,9 @@
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="QUESTION_CIRCLE" size="16" />
+
                      <Label styleClass="side-label" text="Help" />
+
                   </HBox>
                </graphic>
             </Button>
@@ -316,7 +327,9 @@
 					                  
 					<!-- Graphiques -->
 					<TabPane styleClass="dashboard-tabs">
+
 					   <Tab closable="false" text="General overview">
+
 					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <VBox spacing="20.0">
 					            <HBox spacing="20.0">
@@ -386,7 +399,9 @@
 					         </VBox>
 					      </ScrollPane>
 					   </Tab>
+
 					   <Tab closable="false" text="Detailed events">
+
 					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <AnchorPane minHeight="0.0" minWidth="0.0">
 					            <!-- Contenu pour l'onglet événements détaillés -->

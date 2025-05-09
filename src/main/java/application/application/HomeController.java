@@ -15,10 +15,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+
 
 
 import java.io.IOException;
@@ -40,7 +46,7 @@ public class HomeController {
     @FXML 
     private VBox aboutSection;
     @FXML 
-    private ScrollPane scrollPane; // le scroll principal
+    private ScrollPane scrollPane; 
     @FXML
     private ComboBox<String> subjectComboBox;
     
@@ -48,6 +54,11 @@ public class HomeController {
   // Utilisez une valeur par défaut pour les tests
     private int currentUserId;
     private String currentUserEmail;
+    @FXML
+    private Button mes_inscriptions;
+    @FXML
+    private Button mes_notifications;
+    
 
     public void setUserData(int userId, String userEmail) {
         this.currentUserId = userId;
@@ -290,4 +301,30 @@ public class HomeController {
     private void scrollToContact() {
 		scrollToNode(contactSection);
     }
+
+    
+    @FXML
+    private void scrollToInscriptions() {
+    	try {
+	        Parent root = FXMLLoader.load(getClass().getResource("/vues/participant_dashboard.fxml"));
+	        App.stage.setScene(new Scene(root));
+	        App.stage.sizeToScene();  
+	        App.stage.centerOnScreen();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+    }
+    
+    @FXML
+    private void scrollToNotifications() {
+    	try {
+	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Mes_Notifications.fxml"));
+	        App.stage.setScene(new Scene(root));
+	        App.stage.sizeToScene();  
+	        App.stage.centerOnScreen();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+    }
+    
 }

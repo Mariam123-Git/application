@@ -1,12 +1,16 @@
 application\application\App.class
 application\application\DashboardController$Event.class
+application\application\DashboardController$4.class
 application\application\HomeController.class
 application\application\LoginController$1.class
+application\application\DashboardController$7.class
 application\application\DashboardController$2.class
 application\application\RegistrationController.class
 application\application\DBConnection.class
+application\application\DashboardController$5.class
 application\application\MetaData.class
 application\application\DashboardController$1.class
+application\application\DashboardController$6.class
 application\application\AuthService.class
 application\application\DashboardController.class
 application\application\LoginController$2.class

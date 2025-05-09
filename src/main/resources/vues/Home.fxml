@@ -43,6 +43,17 @@
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Event"   onAction="#scrollToEvent" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="About"   onAction="#scrollToAbout" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" onAction="#scrollToContact" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" fx:id="mes_inscriptions" text="Mes inscriptions" onAction="#scrollToInscriptions" />
+                        <Button mnemonicParsing="false" styleClass="nav-link" fx:id="mes_notifications" text="Mes Notificaions" onAction="#scrollToNotifications">
+						    <graphic>
+						        <ImageView fitHeight="16" fitWidth="16">
+						            <image>
+						                <Image url="@../images/OIP.jpeg" />
+						            </image>
+						        </ImageView>
+						    </graphic>
+						</Button>
+						                        
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" styleClass="login-button" text="Login" />
@@ -205,6 +216,7 @@
 					             
 <!-- 					     <FontIcon iconLiteral="fas-info-circle" styleClass="section-icon" /> -->
 					        <Label styleClass="section-title" text="About Us" />
+
 					    </HBox>
 					    
 					    <VBox styleClass="about-content">
@@ -223,6 +235,7 @@
 					            
 					            <VBox styleClass="feature-item">
 					            	<FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" styleClass="section-icon" />
+
 					            
 <!-- 					                <FontIcon iconLiteral="fas-calendar-check" styleClass="feature-icon" /> -->
 					                <Label styleClass="feature-title" text="Register" />
