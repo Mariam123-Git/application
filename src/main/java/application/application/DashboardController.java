@@ -453,7 +453,7 @@ public class DashboardController implements Initializable {
         
         // Déterminer les variations en fonction de la période
         String periode = cbPeriode.getValue();
-        if ("Cette semaine".equals(periode)) {
+        if ("Cette semaine".equals(periode)) { 
             lblEventsVariation.setText("+12% depuis le mois dernier");
             lblParticipantsVariation.setText("+8% depuis le mois dernier");
             lblFillingRateVariation.setText("+5% depuis le mois dernier");
@@ -554,61 +554,442 @@ public class DashboardController implements Initializable {
         System.out.println("Help clicked");
     }
 
+ // Fonction pour gérer la déconnexion
     @FXML
     private void handleLogout(ActionEvent event) {
         System.out.println("Logout clicked");
-        // Implémenter la logique de déconnexion
+        // Afficher une boîte de dialogue de confirmation
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+            javafx.scene.control.Alert.AlertType.CONFIRMATION,
+            "Êtes-vous sûr de vouloir vous déconnecter ?",
+            javafx.scene.control.ButtonType.YES,
+            javafx.scene.control.ButtonType.NO
+        );
+        alert.setTitle("Confirmation de déconnexion");
+        alert.setHeaderText("Déconnexion");
+        
+        // Gérer la réponse de l'utilisateur
+        alert.showAndWait().ifPresent(response -> {
+            if (response == javafx.scene.control.ButtonType.YES) {
+                // Fermer la session et rediriger vers la page de connexion
+                try {
+                    // Rediriger vers la page de connexion
+                    javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                        getClass().getResource("/vues/login.fxml")
+                    );
+                    javafx.scene.Parent root = loader.load();
+                    javafx.scene.Scene scene = new javafx.scene.Scene(root);
+                    
+                    // Obtenir la scène courante et changer son contenu
+                    javafx.stage.Stage currentStage = (javafx.stage.Stage) btnLogout.getScene().getWindow();
+                    currentStage.setScene(scene);
+                    currentStage.setTitle("Connexion - Système de Gestion d'Événements");
+                    currentStage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.err.println("Erreur lors du chargement de la page de connexion : " + e.getMessage());
+                }
+            }
+        });
     }
     
-    // Gestionnaires pour les actions du tableau de bord
+ // Fonction pour rafraîchir les données du tableau de bord
     @FXML
     private void handleRefresh(ActionEvent event) {
-        updateDashboardData();
+        // Afficher l'indicateur de chargement
+        loadingPane.setVisible(true);
+        
+        // Créer et lancer une tâche en arrière-plan
+        javafx.concurrent.Task<Void> refreshTask = new javafx.concurrent.Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                // Simuler un temps de chargement (à remplacer par les appels réels à la BD)
+                Thread.sleep(1500);
+                return null;
+            }
+        };
+        
+        // Ajouter un gestionnaire de succès
+        refreshTask.setOnSucceeded(e -> {
+            // Mettre à jour les statistiques
+            updateStatistics();
+            
+            // Mettre à jour les graphiques
+            updateCharts();
+            
+            // Recharger les données du tableau
+            loadSampleData();
+            
+            // Appliquer les filtres actuels
+            filterEvents();
+            
+            // Mettre à jour le message de la date actuelle
+            lblCurrentDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+            
+            // Masquer l'indicateur de chargement
+            loadingPane.setVisible(false);
+        });
+        
+        // Lancer la tâche dans un thread séparé
+        new Thread(refreshTask).start();
     }
 
+
+ // Fonction pour exporter les événements au format CSV
     @FXML
     private void handleExportEvents(ActionEvent event) {
         System.out.println("Export Events clicked");
-        // Implémenter la logique d'exportation
+        
+        // Créer un sélecteur de fichier
+        javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+        fileChooser.setTitle("Exporter les événements");
+        fileChooser.getExtensionFilters().addAll(
+            new javafx.stage.FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+            new javafx.stage.FileChooser.ExtensionFilter("Excel Files", "*.xlsx")
+        );
+        fileChooser.setInitialFileName("evenements_export_" + 
+            LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + ".csv");
+        
+        // Afficher la boîte de dialogue de sauvegarde
+        javafx.stage.Window window = btnExportEvents.getScene().getWindow();
+        java.io.File file = fileChooser.showSaveDialog(window);
+        
+        if (file != null) {
+            // Afficher l'indicateur de chargement
+            loadingPane.setVisible(true);
+            
+            // Créer une tâche d'exportation en arrière-plan
+            javafx.concurrent.Task<Boolean> exportTask = new javafx.concurrent.Task<Boolean>() {
+                @Override
+                protected Boolean call() throws Exception {
+                    try {
+                        // Créer un fichier CSV
+                        java.io.FileWriter writer = new java.io.FileWriter(file);
+                        
+                        // Écrire l'en-tête
+                        writer.append("ID,Titre,Date,Lieu,Catégorie,Capacité,Inscriptions,Taux de remplissage,Statut\n");
+                        
+                        // Écrire les données
+                        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        for (Event event : tableUpcomingEvents.getItems()) {
+                            writer.append(String.valueOf(event.getId())).append(",");
+                            writer.append("\"").append(event.getTitle().replace("\"", "\"\"")).append("\",");
+                            writer.append(event.getDate().format(dateFormatter)).append(",");
+                            writer.append("\"").append(event.getLocation().replace("\"", "\"\"")).append("\",");
+                            writer.append("\"").append(event.getCategory().replace("\"", "\"\"")).append("\",");
+                            writer.append(String.valueOf(event.getCapacity())).append(",");
+                            writer.append(String.valueOf(event.getRegistrations())).append(",");
+                            writer.append(String.format("%.1f%%", event.getFillRate())).append(",");
+                            writer.append("\"").append(event.getStatus().replace("\"", "\"\"")).append("\"\n");
+                        }
+                        
+                        // Fermer le fichier
+                        writer.flush();
+                        writer.close();
+                        return true;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+            };
+            
+            // Ajouter des gestionnaires pour la fin de la tâche
+            exportTask.setOnSucceeded(e -> {
+                loadingPane.setVisible(false);
+                if (exportTask.getValue()) {
+                    showNotification("Exportation réussie", "Les événements ont été exportés avec succès !");
+                } else {
+                    showError("Erreur d'exportation", "Une erreur est survenue lors de l'exportation.");
+                }
+            });
+            
+            exportTask.setOnFailed(e -> {
+                loadingPane.setVisible(false);
+                showError("Erreur d'exportation", "Une erreur est survenue lors de l'exportation.");
+            });
+            
+            // Lancer la tâche en arrière-plan
+            new Thread(exportTask).start();
+        }
     }
 
+
+ // Fonction pour ajouter un nouvel événement
     @FXML
     private void handleAddEvent(ActionEvent event) {
         System.out.println("Add Event clicked");
-        // Implémenter la logique d'ajout d'événement
+        
+        try {
+            // Charger le formulaire de création d'événement
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                getClass().getResource("/application/application/event_form.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            
+            // Créer une nouvelle fenêtre modale
+            javafx.stage.Stage eventFormStage = new javafx.stage.Stage();
+            eventFormStage.setTitle("Créer un nouvel événement");
+            eventFormStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            eventFormStage.initOwner(btnAddEvent.getScene().getWindow());
+            eventFormStage.setScene(new javafx.scene.Scene(root));
+            
+            // Configurer le contrôleur si nécessaire
+            /*
+            EventFormController controller = loader.getController();
+            controller.setDashboardController(this);
+            */
+            
+            // Afficher la fenêtre et attendre qu'elle soit fermée
+            eventFormStage.showAndWait();
+            
+            // Rafraîchir les données lorsque la fenêtre est fermée
+            handleRefresh(null);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Erreur", "Impossible d'ouvrir le formulaire d'événement : " + e.getMessage());
+        }
     }
-
+    
+ // Fonction pour gérer la pagination vers la page précédente
     @FXML
     private void handlePrevPage(ActionEvent event) {
         if (currentPage > 1) {
             currentPage--;
             updatePaginationInfo();
-            // Charger les données de la page précédente
+            loadPageData(currentPage);
         }
     }
 
+    // Fonction pour gérer la pagination vers la page suivante
     @FXML
     private void handleNextPage(ActionEvent event) {
         if (currentPage < totalPages) {
             currentPage++;
             updatePaginationInfo();
-            // Charger les données de la page suivante
+            loadPageData(currentPage);
         }
     }
+     // Fonction pour charger les données d'une page spécifique
+        private void loadPageData(int page) {
+            // Afficher l'indicateur de chargement
+            loadingPane.setVisible(true);
+            
+            // Créer et lancer une tâche de chargement en arrière-plan
+            javafx.concurrent.Task<ObservableList<Event>> loadTask = new javafx.concurrent.Task<ObservableList<Event>>() {
+                @Override
+                protected ObservableList<Event> call() throws Exception {
+                    // Simuler un temps de chargement (à remplacer par les appels réels à la BD)
+                    Thread.sleep(800);
+                    
+                    // Créer une nouvelle liste d'événements pour cette page
+                    ObservableList<Event> pageEvents = FXCollections.observableArrayList();
+                    
+                    // Ici, vous implémenteriez la logique pour charger les données de la page depuis la BD
+                    // En attendant, nous simulons des données différentes pour chaque page
+                    int startId = (page - 1) * 8 + 1;
+                    
+                    for (int i = 0; i < 8; i++) {
+                        int id = startId + i;
+                        if (id <= 30) { // Supposons un maximum de 30 événements
+                            LocalDate eventDate = LocalDate.now().plusDays(id * 3);
+                            int capacity = 50 + (id * 10);
+                            int registrations = (int)(capacity * (0.5 + (Math.random() * 0.4)));
+                            double fillRate = 100.0 * registrations / capacity;
+                            
+                            pageEvents.add(new Event(
+                                id, 
+                                "Événement " + id, 
+                                eventDate,
+                                "Ville " + (id % 10 + 1),
+                                "Catégorie " + (id % 5 + 1),
+                                capacity,
+                                registrations,
+                                fillRate,
+                                "À venir"
+                            ));
+                        }
+                    }
+                    
+                    return pageEvents;
+                }
+            };
+            
+            // Gérer la fin de la tâche
+            loadTask.setOnSucceeded(e -> {
+                eventsList.clear();
+                eventsList.addAll(loadTask.getValue());
+                filterEvents();
+                loadingPane.setVisible(false);
+            });
+            
+            loadTask.setOnFailed(e -> {
+                showError("Erreur de chargement", "Impossible de charger les données de la page.");
+                loadingPane.setVisible(false);
+            });
+            
+            // Lancer la tâche en arrière-plan
+            new Thread(loadTask).start();
+        }
     
-    // Gestionnaires pour les actions sur les événements individuels
+ // Gestionnaires pour les actions sur les événements individuels
     private void handleViewEvent(Event event) {
         System.out.println("View Event: " + event.getTitle());
-        // Implémenter la logique d'affichage détaillé
+        
+        try {
+            // Charger la vue détaillée de l'événement
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                getClass().getResource("/vues/event_details.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            
+            // Configurer le contrôleur avec les données de l'événement
+            /*
+            EventDetailsController controller = loader.getController();
+            controller.setEvent(event);
+            */
+            
+            // Créer une nouvelle fenêtre
+            javafx.stage.Stage detailsStage = new javafx.stage.Stage();
+            detailsStage.setTitle("Détails de l'événement - " + event.getTitle());
+            detailsStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            detailsStage.initOwner(tableUpcomingEvents.getScene().getWindow());
+            detailsStage.setScene(new javafx.scene.Scene(root));
+            
+            // Afficher la fenêtre
+            detailsStage.show();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Erreur", "Impossible d'afficher les détails de l'événement : " + e.getMessage());
+        }
     }
     
     private void handleEditEvent(Event event) {
         System.out.println("Edit Event: " + event.getTitle());
-        // Implémenter la logique d'édition
+        
+        try {
+            // Charger le formulaire d'édition d'événement
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                getClass().getResource("/vues/event_form.fxml")
+            );
+            javafx.scene.Parent root = loader.load();
+            
+            // Configurer le contrôleur avec les données de l'événement
+            /*
+            EventFormController controller = loader.getController();
+            controller.setEvent(event);
+            controller.setDashboardController(this);
+            controller.setEditMode(true);
+            */
+            
+            // Créer une nouvelle fenêtre
+            javafx.stage.Stage editStage = new javafx.stage.Stage();
+            editStage.setTitle("Modifier l'événement - " + event.getTitle());
+            editStage.initModality(javafx.stage.Modality.WINDOW_MODAL);
+            editStage.initOwner(tableUpcomingEvents.getScene().getWindow());
+            editStage.setScene(new javafx.scene.Scene(root));
+            
+            // Afficher la fenêtre et attendre qu'elle soit fermée
+            editStage.showAndWait();
+            
+            // Rafraîchir les données lorsque la fenêtre est fermée
+            handleRefresh(null);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Erreur", "Impossible d'ouvrir le formulaire d'édition : " + e.getMessage());
+        }
     }
+
     
     private void handleDeleteEvent(Event event) {
         System.out.println("Delete Event: " + event.getTitle());
-        // Implémenter la logique de suppression
+        
+        // Afficher une boîte de dialogue de confirmation
+        javafx.scene.control.Alert confirmation = new javafx.scene.control.Alert(
+            javafx.scene.control.Alert.AlertType.CONFIRMATION,
+            "Êtes-vous sûr de vouloir supprimer l'événement \"" + event.getTitle() + "\" ?",
+            javafx.scene.control.ButtonType.YES,
+            javafx.scene.control.ButtonType.NO
+        );
+        confirmation.setTitle("Confirmation de suppression");
+        confirmation.setHeaderText("Supprimer un événement");
+        
+        // Traiter la réponse
+        confirmation.showAndWait().ifPresent(response -> {
+            if (response == javafx.scene.control.ButtonType.YES) {
+                // Afficher l'indicateur de chargement
+                loadingPane.setVisible(true);
+                
+                // Créer et lancer une tâche de suppression en arrière-plan
+                javafx.concurrent.Task<Boolean> deleteTask = new javafx.concurrent.Task<Boolean>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        try {
+                            // Simuler un traitement (à remplacer par les appels réels à la BD)
+                            Thread.sleep(1000);
+                            
+                            // Ici, vous intégreriez le code pour supprimer l'événement de la base de données
+                            // En attendant, nous supprimons simplement de la liste observable
+                            return true;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    }
+                };
+                
+                // Gérer la fin de la tâche
+                deleteTask.setOnSucceeded(e -> {
+                    if (deleteTask.getValue()) {
+                        // Supprimer l'événement de la liste observable
+                        eventsList.remove(event);
+                        // Rafraîchir le tableau
+                        filterEvents();
+                        // Mettre à jour les statistiques et graphiques
+                        updateStatistics();
+                        updateCharts();
+                        
+                        showNotification("Suppression réussie", "L'événement a été supprimé avec succès.");
+                    } else {
+                        showError("Erreur de suppression", "Une erreur est survenue lors de la suppression de l'événement.");
+                    }
+                    loadingPane.setVisible(false);
+                });
+                
+                deleteTask.setOnFailed(e -> {
+                    showError("Erreur de suppression", "Une erreur est survenue lors de la suppression de l'événement.");
+                    loadingPane.setVisible(false);
+                });
+                
+                // Lancer la tâche en arrière-plan
+                new Thread(deleteTask).start();
+            }
+        });
+    }
+
+    
+    //Fonction supplémentaire
+    
+ // Fonction utilitaire pour afficher une notification
+    private void showNotification(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+            javafx.scene.control.Alert.AlertType.INFORMATION, message
+        );
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    // Fonction utilitaire pour afficher une erreur
+    private void showError(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+            javafx.scene.control.Alert.AlertType.ERROR, message
+        );
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 }

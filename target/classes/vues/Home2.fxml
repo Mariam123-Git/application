@@ -29,7 +29,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="900.0" prefWidth="1280.0" styleClass="main-container" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.DashboardController">
+<BorderPane prefHeight="700.0" prefWidth="1280.0" styleClass="main-container" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.application.DashboardController">
    <top>
       <HBox alignment="CENTER_LEFT" styleClass="top-bar">
          <padding>
@@ -91,65 +91,66 @@
                <Insets top="20.0" />
             </padding>
             
-            <Button fx:id="btnDashboard" onAction="#handleDashboard" styleClass="menu-button, active-menu-button">
-               <graphic>
-                  <HBox alignment="CENTER_LEFT" spacing="10.0">
-                     <FontAwesomeIconView glyphName="HOME" size="16" styleClass="page-title" />
-                     <Label text="Dashboard" />
-                  </HBox>
-               </graphic>
-            </Button>
+           <Button fx:id="btnDashboard" maxWidth="1.7976931348623157E308" onAction="#handleDashboard" prefWidth="180.0" styleClass="menu-button, active-menu-button">
+			   <graphic>
+			      <HBox alignment="CENTER_LEFT" prefWidth="180.0" spacing="10.0">
+			         <FontAwesomeIconView glyphName="HOME" size="16" styleClass="page-title" />
+			         <Label styleClass="side-label" text="Dashboard" />
+			      </HBox>
+			   </graphic>
+		  </Button>
+
             
-            <Button fx:id="btnEvents" onAction="#handleEvents" styleClass="menu-button">
+            <Button fx:id="btnEvents" maxWidth="1.7976931348623157E308" onAction="#handleEvents" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="CALENDAR" size="16" />
-                     <Label text="Événements" />
+                     <Label styleClass="side-label" text="Événements" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCreateEvent" onAction="#handleCreateEvent" styleClass="menu-button">
+            <Button fx:id="btnCreateEvent" maxWidth="1.7976931348623157E308" onAction="#handleCreateEvent" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="PLUS_CIRCLE" size="16" />
-                     <Label text="Créer Événement" />
+                     <Label styleClass="side-label" text="Créer Événement" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnParticipants" onAction="#handleParticipants" styleClass="menu-button">
+            <Button fx:id="btnParticipants" maxWidth="1.7976931348623157E308" onAction="#handleParticipants" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="USERS" size="16" />
-                     <Label text="Participants" />
+                     <Label styleClass="side-label" text="Participants" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCommunications" onAction="#handleCommunications" styleClass="menu-button">
+            <Button fx:id="btnCommunications" maxWidth="1.7976931348623157E308" onAction="#handleCommunications" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="ENVELOPE" size="16" />
-                     <Label text="Communications" />
+                     <Label styleClass="side-label" text="Communications" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnReports" onAction="#handleReports" styleClass="menu-button">
+            <Button fx:id="btnReports" maxWidth="1.7976931348623157E308" onAction="#handleReports" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="BAR_CHART" size="16" />
-                     <Label text="Rapports" />
+                     <Label styleClass="side-label" text="Rapports" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnCategories" onAction="#handleCategories" styleClass="menu-button">
+            <Button fx:id="btnCategories" maxWidth="1.7976931348623157E308" onAction="#handleCategories" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="TAGS" size="16" />
-                     <Label text="Catégories" />
+                     <Label styleClass="side-label" text="Catégories" />
                   </HBox>
                </graphic>
             </Button>
@@ -160,20 +161,20 @@
                </VBox.margin>
             </Separator>
             
-            <Button fx:id="btnSettings" onAction="#handleSettings" styleClass="menu-button">
+            <Button fx:id="btnSettings" maxWidth="1.7976931348623157E308" onAction="#handleSettings" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="COG" size="16" />
-                     <Label text="Paramètres" />
+                     <Label styleClass="side-label" text="Paramètres" />
                   </HBox>
                </graphic>
             </Button>
             
-            <Button fx:id="btnHelp" onAction="#handleHelp" styleClass="menu-button">
+            <Button fx:id="btnHelp" maxWidth="1.7976931348623157E308" onAction="#handleHelp" styleClass="menu-button">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <FontAwesomeIconView glyphName="QUESTION_CIRCLE" size="16" />
-                     <Label text="Aide" />
+                     <Label styleClass="side-label" text="Aide" />
                   </HBox>
                </graphic>
             </Button>
@@ -316,7 +317,7 @@
 					<!-- Graphiques -->
 					<TabPane styleClass="dashboard-tabs">
 					   <Tab closable="false" text="Aperçu général">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <VBox spacing="20.0">
 					            <HBox spacing="20.0">
 					               <!-- Graphique à gauche: Évolution des inscriptions -->
@@ -386,14 +387,14 @@
 					      </ScrollPane>
 					   </Tab>
 					   <Tab closable="false" text="Événements détaillés">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <AnchorPane minHeight="0.0" minWidth="0.0">
 					            <!-- Contenu pour l'onglet événements détaillés -->
 					         </AnchorPane>
 					      </ScrollPane>
 					   </Tab>
 					   <Tab closable="false" text="Participants">
-					      <ScrollPane fitToWidth="true" fitToHeight="true">
+					      <ScrollPane fitToHeight="true" fitToWidth="true">
 					         <AnchorPane minHeight="0.0" minWidth="0.0">
 					            <!-- Contenu pour l'onglet participants -->
 					         </AnchorPane>
