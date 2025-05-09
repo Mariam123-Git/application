@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="application.application.AppTest" time="0.109" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="23"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application\target\test-classes;C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application\target\classes;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19-win.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19-win.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19-win.jar;C:\Users\Utilisateur\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Utilisateur\.m2\repository\com\jfoenix\jfoenix\9.0.10\jfoenix-9.0.10.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20-win.jar;C:\Users\Utilisateur\.m2\repository\com\mysql\mysql-connector-j\9.2.0\mysql-connector-j-9.2.0.jar;C:\Users\Utilisateur\.m2\repository\com\google\protobuf\protobuf-java\4.29.0\protobuf-java-4.29.0.jar;C:\Users\Utilisateur\.m2\repository\de\jensd\fontawesomefx-fontawesome\4.7.0-9.1.2\fontawesomefx-fontawesome-4.7.0-9.1.2.jar;C:\Users\Utilisateur\.m2\repository\de\jensd\fontawesomefx-commons\9.1.2\fontawesomefx-commons-9.1.2.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-core\12.3.1\ikonli-core-12.3.1.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-javafx\12.3.1\ikonli-javafx-12.3.1.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-fontawesome5-pack\12.3.1\ikonli-fontawesome5-pack-12.3.1.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Africa/Casablanca"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="23"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="FR"/>
+    <property name="sun.boot.library.path" value="C:\Users\Utilisateur\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_23.0.0.v20240919-1706\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\Utilisateur\AppData\Local\Temp\surefire16963078201480005783\surefirebooter-20250507143120382_3.jar C:\Users\Utilisateur\AppData\Local\Temp\surefire16963078201480005783 2025-05-07T14-31-20_048-jvmRun1 surefire-20250507143120382_1tmp surefire_0-20250507143120382_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application\target\test-classes;C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application\target\classes;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-controls\19\javafx-controls-19-win.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-graphics\19\javafx-graphics-19-win.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-fxml\19\javafx-fxml-19-win.jar;C:\Users\Utilisateur\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;C:\Users\Utilisateur\.m2\repository\com\jfoenix\jfoenix\9.0.10\jfoenix-9.0.10.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20.jar;C:\Users\Utilisateur\.m2\repository\org\openjfx\javafx-base\20\javafx-base-20-win.jar;C:\Users\Utilisateur\.m2\repository\com\mysql\mysql-connector-j\9.2.0\mysql-connector-j-9.2.0.jar;C:\Users\Utilisateur\.m2\repository\com\google\protobuf\protobuf-java\4.29.0\protobuf-java-4.29.0.jar;C:\Users\Utilisateur\.m2\repository\de\jensd\fontawesomefx-fontawesome\4.7.0-9.1.2\fontawesomefx-fontawesome-4.7.0-9.1.2.jar;C:\Users\Utilisateur\.m2\repository\de\jensd\fontawesomefx-commons\9.1.2\fontawesomefx-commons-9.1.2.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-core\12.3.1\ikonli-core-12.3.1.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-javafx\12.3.1\ikonli-javafx-12.3.1.jar;C:\Users\Utilisateur\.m2\repository\org\kordamp\ikonli\ikonli-fontawesome5-pack\12.3.1\ikonli-fontawesome5-pack-12.3.1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Utilisateur"/>
+    <property name="user.language" value="fr"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-09-17"/>
+    <property name="java.home" value="C:\Users\Utilisateur\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_23.0.0.v20240919-1706\jre"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application"/>
+    <property name="style.color" value="always"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\Utilisateur\AppData\Local\Temp\surefire16963078201480005783\surefirebooter-20250507143120382_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="23+37"/>
+    <property name="user.name" value="Utilisateur"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-23+37"/>
+    <property name="localRepository" value="C:\Users\Utilisateur\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\UTILIS~1\AppData\Local\Temp\"/>
+    <property name="java.version" value="23"/>
+    <property name="user.dir" value="C:\Users\Utilisateur\Desktop\ENSAK\Semestre8\Java GUI\Projet\application"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Users\Utilisateur\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_23.0.0.v20240919-1706\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Users/Utilisateur/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_23.0.0.v20240919-1706/jre/bin/server;C:/Users/Utilisateur/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_23.0.0.v20240919-1706/jre/bin;C:\app\Utilisateur\product\23ai\dbhomeFree\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\LINGO64_20\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs\;C:\Program Files\OpenSSL-Win64\bin;C:\Ruby31-x64\bin;C:\Users\Utilisateur\AppData\Local\Microsoft\WindowsApps;C:\Users\Utilisateur\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Utilisateur\AppData\Local\Microsoft\WindowsApps\python.exe;C:\Users\Utilisateur\AppData\Local\GitHubDesktop\bin;C:\Users\Utilisateur\AppData\Local\Programs\Python\Python312\Scripts;C:\Users\Utilisateur\AppData\Local\Yarn\bin;C:\Users\Utilisateur\.dotnet\tools;C:\Users\Utilisateur\AppData\Roaming\Composer\vendor\bin;C:\Users\Utilisateur\AppData\Roaming\npm;C:\Windows\System32;;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="23+37"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="67.0"/>
+  </properties>
+  <testcase name="testApp" classname="application.application.AppTest" time="0.013"/>
+</testsuite>
