@@ -13,10 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.geometry.Insets;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -37,13 +39,11 @@ public class EventDetailController {
     @FXML private Label placesValue;
     @FXML private TextArea descArea;
    
-
     private int eventId;
     private int currentUserId = -1; // Initialisation avec valeur par défaut
     private String currentUserEmail = "";
 
-    // UNE SEULE méthode initData
- // 1. Assurez-vous que l'initialisation des données utilisateur est correcte dans initData
+    // Méthode initData
     public void initData(int eventId, int userId, String userEmail) {
         this.eventId = eventId;
         this.currentUserId = userId;
@@ -54,11 +54,10 @@ public class EventDetailController {
         
         Platform.runLater(() -> {
             loadEventDetails();
-          
         });
     }
 
-    // 2. Ajouter une méthode pour gérer l'état du bouton d'inscription
+    // Méthode pour gérer l'état du bouton d'inscription
     private void updateRegisterButtonState() {
         // Vérifier si l'utilisateur est connecté
         if (currentUserId <= 0 || currentUserEmail == null || currentUserEmail.isEmpty()) {
@@ -87,12 +86,13 @@ public class EventDetailController {
         registerBtn.setDisable(false);
     }
 
-    // 3. Modifier registerForEvent pour inclure plus de logs et vérifications
+    @FXML
+    private void testMethod() {
+        System.out.println("✅ Bouton test cliqué !");
+    }
+
     @FXML
     private void registerForEvent(ActionEvent event) {
-    	 System.out.println("🎉 Bouton cliqué !");
-        System.out.println("DEBUG - Bouton cliqué! UserId=" + currentUserId + ", Email=" + currentUserEmail);
-        
         // Vérifier si l'utilisateur est connecté
         if (currentUserId <= 0 || currentUserEmail == null || currentUserEmail.isEmpty()) {
             showAlert("Connexion requise", "Veuillez vous connecter pour vous inscrire", Alert.AlertType.WARNING);
@@ -109,7 +109,7 @@ public class EventDetailController {
             return;
         }
 
-        // Continuer avec la logique existante...
+        // Vérifier si l'utilisateur est déjà inscrit
         if (isAlreadyRegistered()) {
             showAlert("Déjà inscrit", "Vous êtes déjà inscrit à cet événement", Alert.AlertType.INFORMATION);
             registerBtn.setText("Déjà inscrit");
@@ -117,6 +117,10 @@ public class EventDetailController {
             return;
         }
 
+        // Vérifier les places disponibles
+        System.out.println("DEBUG - registerForEvent called");
+        System.out.println("Current user ID: " + currentUserId);
+        System.out.println("Current user email: " + currentUserEmail);
         int placesDisponibles = getAvailablePlaces();
         System.out.println("DEBUG - Places disponibles: " + placesDisponibles);
         if (placesDisponibles <= 0) {
@@ -126,13 +130,15 @@ public class EventDetailController {
             return;
         }
 
-        checkUserIsParticipant();
+        // Directement créer l'inscription sans demander des informations supplémentaires
+        createInscription();
     }
     
     private void loadEventDetails() {
-        String sql = "SELECT e.*, a.nom AS organisateur FROM evenement e " +
-                   "JOIN administrateur a ON e.id_admin = a.id_admin " +
-                   "WHERE e.id_evenement = ?";
+        // Requête corrigée pour correspondre à la structure de la BDD
+        String sql = "SELECT e.*, u.USERNAME AS organisateur FROM evenement e " +
+                   "JOIN user u ON e.ID_USER = u.ID_USER " +
+                   "WHERE e.ID_EVENEMENT = ?";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -141,34 +147,29 @@ public class EventDetailController {
             ResultSet rs = stmt.executeQuery();
             
             if (rs.next()) {
-                // Texte et données simples
-                eventTitle.setText(rs.getString("titre"));
-                dateValue.setText(formatDate(rs.getTimestamp("date_debut")));
-                lieuValue.setText(rs.getString("lieu"));
-                lieuDetailValue.setText(rs.getString("lieu"));
-                adresseValue.setText(rs.getString("adresse"));
+                eventTitle.setText(rs.getString("TITRE"));
+                dateValue.setText(formatDate(rs.getTimestamp("DATE_DEBUT")));
+                lieuValue.setText(rs.getString("Ville"));
+                lieuDetailValue.setText(rs.getString("Ville"));
+                adresseValue.setText(rs.getString("ADRESSE"));
                 orgValue.setText(rs.getString("organisateur"));
-                capacityValue.setText(rs.getInt("nb_places_max") + " places");
+                capacityValue.setText(rs.getInt("NB_PLACES_MAX") + " places");
                 creationValue.setText(formatDate(rs.getTimestamp("date_creation")));
-                descArea.setText(rs.getString("description"));
+                descArea.setText(rs.getString("DESCRIPTION"));
                 
-                // Image BLOB
-                byte[] imageData = rs.getBytes("image");
+                byte[] imageData = rs.getBytes("IMAGE");
                 if (imageData != null && imageData.length > 0) {
                     Image image = new Image(new ByteArrayInputStream(imageData));
                     eventImage.setImage(image);
                 } else {
-                    // Image par défaut si aucune image n'est disponible
                     eventImage.setImage(new Image(getClass().getResourceAsStream("/images/default-event.png")));
                 }
                 
-                // Places disponibles
                 updateAvailablePlaces();
                 
-                // Statut de l'événement
-                updateStatusDisplay(rs.getString("statut"));
+                // Pour le statut, on va simplement utiliser une valeur par défaut car la colonne n'existe pas
+                updateStatusDisplay("publié");
                 
-                // Vérifier si l'utilisateur est déjà inscrit
                 if (currentUserId > 0 && isAlreadyRegistered()) {
                     registerBtn.setText("Déjà inscrit");
                     registerBtn.setDisable(true);
@@ -181,7 +182,6 @@ public class EventDetailController {
             showAlert("Erreur", "Impossible de charger les détails de l'événement: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
         }
-    
     }
 
     private String formatDate(Timestamp timestamp) {
@@ -191,10 +191,11 @@ public class EventDetailController {
     }
 
     private void updateAvailablePlaces() {
-        String sql = "SELECT e.nb_places_max - COUNT(i.id_inscription) AS places_restantes " +
-                   "FROM evenement e LEFT JOIN inscription i ON e.id_evenement = i.id_evenement " +
-                   "WHERE e.id_evenement = ? AND (i.statut = 'confirmée' OR i.statut IS NULL) " +
-                   "GROUP BY e.id_evenement, e.nb_places_max";
+        // Requête corrigée pour correspondre à la structure de la BDD
+        String sql = "SELECT e.NB_PLACES_MAX - COUNT(i.ID_USER) AS places_restantes " +
+                   "FROM evenement e LEFT JOIN inscription i ON e.ID_EVENEMENT = i.ID_EVENEMENT " +
+                   "WHERE e.ID_EVENEMENT = ? AND (i.STATUT = 'confirmée' OR i.STATUT IS NULL) " +
+                   "GROUP BY e.ID_EVENEMENT, e.NB_PLACES_MAX";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -206,13 +207,10 @@ public class EventDetailController {
                     int placesRestantes = rs.getInt("places_restantes");
                     placesValue.setText(placesRestantes + " places disponibles");
                     
-                    // Debug
                     System.out.println("Places restantes: " + placesRestantes);
                     
-                    // Désactiver le bouton si plus de places
                     if (placesRestantes <= 0) {
                         registerBtn.setDisable(true);
-                        // Mettre à jour le statut si complet
                         updateEventStatus("clôturé");
                     }
                 }
@@ -224,21 +222,8 @@ public class EventDetailController {
     }
 
     private void updateEventStatus(String status) {
-        String sql = "UPDATE evenement SET statut = ? WHERE id_evenement = ?";
-        
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setString(1, status);
-            stmt.setInt(2, eventId);
-            stmt.executeUpdate();
-            
-            // Mettre à jour l'affichage
-            updateStatusDisplay(status);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Erreur", "Erreur lors de la mise à jour du statut: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
+        // Comme il n'y a pas de colonne "statut" dans la table evenement, on va juste mettre à jour l'affichage
+        updateStatusDisplay(status);
     }
 
     private void updateStatusDisplay(String status) {
@@ -275,14 +260,13 @@ public class EventDetailController {
         }
     }
 
-   
-
     private int getAvailablePlaces() {
-        String sql = "SELECT (e.nb_places_max - COUNT(i.id_inscription)) AS places_disponibles " +
-                   "FROM evenement e LEFT JOIN inscription i ON e.id_evenement = i.id_evenement " +
-                   "AND i.statut = 'confirmée' " +
-                   "WHERE e.id_evenement = ? " +
-                   "GROUP BY e.id_evenement, e.nb_places_max";
+        // Requête corrigée pour correspondre à la structure de la BDD
+        String sql = "SELECT (e.NB_PLACES_MAX - COUNT(i.ID_USER)) AS places_disponibles " +
+                   "FROM evenement e LEFT JOIN inscription i ON e.ID_EVENEMENT = i.ID_EVENEMENT " +
+                   "AND i.STATUT = 'confirmée' " +
+                   "WHERE e.ID_EVENEMENT = ? " +
+                   "GROUP BY e.ID_EVENEMENT, e.NB_PLACES_MAX";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -296,92 +280,43 @@ public class EventDetailController {
         }
     }
 
-    private void checkUserIsParticipant() {
-        String sql = "SELECT id_participant FROM participant WHERE id_user = ?";
-        
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setInt(1, currentUserId);
-            
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                // Utilisateur déjà participant
-                int participantId = rs.getInt("id_participant");
-                registerExistingParticipant(participantId);
-            } else {
-                // Nouveau participant
-                showParticipantForm();
-            }
-        } catch (SQLException e) {
-            showAlert("Erreur", "Erreur de vérification: " + e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
-        }
-    }
-
-    // Ajout de la méthode manquante
-    private void registerExistingParticipant(int participantId) {
-        try (Connection conn = DBConnection.getConnection()) {
-            createInscription(conn, participantId);
-            
-            showAlert("Succès", "Inscription réussie!", Alert.AlertType.INFORMATION);
-            registerBtn.setText("Déjà inscrit");
-            registerBtn.setDisable(true);
-            updateAvailablePlaces();
-        } catch (SQLException e) {
-            showAlert("Erreur", "Erreur lors de l'inscription: " + e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
-        }
-    }
-
-    private void showParticipantForm() {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Compléter votre profil");
-        dialog.setHeaderText("Veuillez compléter vos informations de participant");
-
-        TextField nomField = new TextField();
-        TextField prenomField = new TextField();
-        TextField telephoneField = new TextField();
-
-        GridPane grid = new GridPane();
-        grid.add(new Label("Nom:"), 0, 0);
-        grid.add(nomField, 1, 0);
-        grid.add(new Label("Prénom:"), 0, 1);
-        grid.add(prenomField, 1, 1);
-        grid.add(new Label("Téléphone:"), 0, 2);
-        grid.add(telephoneField, 1, 2);
-        
-        dialog.getDialogPane().setContent(grid);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        Optional<ButtonType> result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            if (nomField.getText().isEmpty() || prenomField.getText().isEmpty()) {
-                showAlert("Erreur", "Le nom et prénom sont obligatoires", Alert.AlertType.ERROR);
-                return;
-            }
-            createParticipantAndInscription(nomField.getText(), prenomField.getText(), telephoneField.getText());
-        }
-    }
-
-    private void createParticipantAndInscription(String nom, String prenom, String telephone) {
+    private void createInscription() {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
             conn.setAutoCommit(false);
-
-            // 1. Créer le participant avec l'id_user
-            int participantId = createParticipant(conn, nom, prenom, telephone);
             
-            // 2. Créer l'inscription
-            createInscription(conn, participantId);
+            // Vérifier d'abord si une inscription existe déjà
+            if (inscriptionExists(conn)) {
+                // L'inscription existe déjà, mettre à jour le statut si nécessaire
+                String updateSql = "UPDATE inscription SET STATUT = 'confirmée' " +
+                                 "WHERE ID_EVENEMENT = ? AND ID_USER = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
+                    stmt.setInt(1, eventId);
+                    stmt.setInt(2, currentUserId);
+                    stmt.executeUpdate();
+                }
+            } else {
+                // Créer une nouvelle inscription
+                String insertSql = "INSERT INTO inscription (ID_USER, ID_EVENEMENT, DATE_INSCRITPTION, STATUT) " +
+                                 "VALUES (?, ?, ?, 'confirmée')";
+                try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
+                    stmt.setInt(1, currentUserId);
+                    stmt.setInt(2, eventId);
+                    stmt.setString(3, java.time.LocalDate.now().toString());
+                  
+                    
+                    stmt.executeUpdate();
+                }
+            }
             
             conn.commit();
             
-            showAlert("Succès", "Inscription réussie!", Alert.AlertType.INFORMATION);
+            showAlert("Succès", "Inscription réussie! Vous recevrez bientôt une notification.", Alert.AlertType.INFORMATION);
             registerBtn.setText("Déjà inscrit");
             registerBtn.setDisable(true);
             updateAvailablePlaces();
+            
         } catch (SQLException e) {
             try {
                 if (conn != null) conn.rollback();
@@ -389,55 +324,34 @@ public class EventDetailController {
                 ex.printStackTrace();
             }
             showAlert("Erreur", "Erreur lors de l'inscription: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         } finally {
             try {
-                if (conn != null) conn.close();
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
-
-    private int createParticipant(Connection conn, String nom, String prenom, String telephone) throws SQLException {
-        String sql = "INSERT INTO participant (nom, prenom, email, telephone, date_inscription, id_user) " +
-                   "VALUES (?, ?, ?, ?, ?, ?)";
-        
-        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, nom);
-            stmt.setString(2, prenom);
-            stmt.setString(3, currentUserEmail); // email de l'utilisateur
-            stmt.setString(4, telephone);
-            stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-            stmt.setInt(6, currentUserId); // id_user de l'utilisateur connecté
-            
-            stmt.executeUpdate();
-            
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-            throw new SQLException("Échec de la création du participant");
-        }
-    }
-
-    // Ajout de la méthode manquante pour créer l'inscription
-    private void createInscription(Connection conn, int participantId) throws SQLException {
-        String sql = "INSERT INTO inscription (id_evenement, id_participant, date_inscription, statut) " +
-                  "VALUES (?, ?, ?, 'confirmée')";
+    
+    private boolean inscriptionExists(Connection conn) throws SQLException {
+        String sql = "SELECT 1 FROM inscription WHERE ID_EVENEMENT = ? AND ID_USER = ?";
         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, eventId);
-            stmt.setInt(2, participantId);
-            stmt.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            stmt.setInt(2, currentUserId);
             
-            stmt.executeUpdate();
+            return stmt.executeQuery().next();
         }
     }
 
     private boolean isAlreadyRegistered() {
-        String sql = "SELECT 1 FROM inscription i " +
-                   "JOIN participant p ON i.id_participant = p.id_participant " +
-                   "WHERE i.id_evenement = ? AND p.id_user = ?";
+        // Requête corrigée pour correspondre à la structure de la BDD
+        String sql = "SELECT 1 FROM inscription " +
+                   "WHERE ID_EVENEMENT = ? AND ID_USER = ?";
         
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -450,14 +364,23 @@ public class EventDetailController {
             return false;
         }
     }
+    
     @FXML
     private void goBack(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
+            // 1. Charger le FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/Home.fxml"));
+            Parent root = loader.load();
+            
+            // 2. Récupérer le contrôleur de Home.fxml et lui transmettre les données
+            HomeController homeController = loader.getController();
+            homeController.setUserData(currentUserId, currentUserEmail); 
+            
+            // 3. Afficher la scène
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
             showAlert("Erreur", "Impossible de retourner à l'accueil: " + e.getMessage(), Alert.AlertType.ERROR);

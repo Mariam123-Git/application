@@ -4,23 +4,20 @@ public class User {
     private int id;
     private String username;
     private String email;
+    private String role;
 
-    public User(int id, String username, String email) {
+    public User(int id, String username, String email, String role) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.role = role;
     }
 
-    // Getters
-    public int getId() {
-        return id;
-    }
+    // Getters et setters
+    public int getId() { return id; }
+    public String getUsername() { return username; }
+    public String getEmail() { return email; }
+    public String getRole() { return role; }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+    // Ajoute des setters si tu modifies l'utilisateur plus tard
 }

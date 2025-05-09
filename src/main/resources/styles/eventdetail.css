@@ -315,3 +315,144 @@
     -fx-padding: 8px 12px;
     -fx-background-radius: 4px;
 }
+/* Styles existants */
+
+
+.participant-dialog {
+    -fx-background-color: -fx-gray-100;
+}
+
+.participant-dialog .dialog-pane {
+    -fx-background-color: white;
+    -fx-background-radius: -fx-radius-md;
+    -fx-effect: -fx-shadow-md;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+}
+
+.participant-dialog .header-panel {
+    -fx-background-color: -fx-primary;
+    -fx-padding: 15 20 15 20;
+    -fx-background-radius: -fx-radius-md -fx-radius-md 0 0;
+}
+
+.participant-dialog .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 1);
+}
+
+.participant-dialog .content-panel {
+    -fx-padding: 25;
+    -fx-spacing: 15;
+}
+
+.participant-dialog .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-gray-700;
+    -fx-font-weight: bold;
+}
+
+.participant-dialog .text-field {
+    -fx-background-color: -fx-gray-50;
+    -fx-background-radius: -fx-radius-sm;
+    -fx-border-color: -fx-gray-300;
+    -fx-border-radius: -fx-radius-sm;
+    -fx-border-width: 1px;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+    -fx-pref-width: 280px;
+}
+
+.participant-dialog .text-field:focused {
+    -fx-border-color: -fx-primary;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.2), 8, 0, 0, 0);
+}
+
+.participant-dialog .button-bar {
+    -fx-padding: 15 25 20 25;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: -fx-gray-200;
+    -fx-background-color: -fx-gray-50;
+    -fx-background-radius: 0 0 -fx-radius-md -fx-radius-md;
+}
+
+.participant-dialog .button {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 24px;
+    -fx-background-radius: 50px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-effect: -fx-shadow-sm;
+    -fx-translate-y: 0;
+}
+
+.participant-dialog .button:hover {
+    -fx-background-color: -fx-primary-dark;
+    -fx-translate-y: -1px;
+    -fx-effect: -fx-shadow-md;
+}
+
+.participant-dialog .button:pressed {
+    -fx-background-color: derive(-fx-primary-dark, -5%);
+    -fx-translate-y: 1px;
+    -fx-effect: -fx-shadow-sm;
+}
+
+.participant-dialog .cancel-button {
+    -fx-background-color: -fx-gray-200;
+    -fx-text-fill: -fx-gray-700;
+}
+
+.participant-dialog .cancel-button:hover {
+    -fx-background-color: derive(-fx-gray-200, -5%);
+}
+
+.participant-dialog .cancel-button:pressed {
+    -fx-background-color: derive(-fx-gray-200, -10%);
+}
+
+/* Animation des transitions */
+.participant-dialog * {
+    -fx-transition-duration: 150ms;
+}
+
+/* Personnalisation du champ obligatoire */
+.required-field {
+    -fx-border-color: derive(-fx-warn, 70%);
+}
+
+.required-field:focused {
+    -fx-border-color: -fx-warn;
+    -fx-effect: dropshadow(gaussian, rgba(244, 63, 94, 0.2), 8, 0, 0, 0);
+}
+
+/* Style pour message d'erreur */
+.error-message {
+    -fx-text-fill: -fx-warn;
+    -fx-font-size: 12px;
+    -fx-padding: 4 0 0 4;
+}
+
+/* Icône pour champ d'utilisateur */
+.user-icon {
+    -fx-background-color: -fx-primary;
+    -fx-shape: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z";
+    -fx-min-width: 16;
+    -fx-min-height: 16;
+    -fx-opacity: 0.8;
+}
+
+/* Icône pour champ d'email */
+.email-icon {
+    -fx-background-color: -fx-primary;
+    -fx-shape: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z";
+    -fx-min-width: 16;
+    -fx-min-height: 16;
+    -fx-opacity: 0.8;
+}

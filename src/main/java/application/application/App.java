@@ -25,9 +25,12 @@ public class App extends Application
 	        primaryStage.show();*/
 		  
 		    Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
+<<<<<<< HEAD
 		   // Parent root = FXMLLoader.load(getClass().getResource("/vues/login.fxml"));
+=======
+>>>>>>> d47641f2dd0c6cabd2dba8baf6638aa4849800dd
 	        Scene scene = new Scene(root);
-	        stage.setTitle("Events Management");
+	        stage.setTitle("Gestion d'Événements");
 	        stage.initStyle(StageStyle.UNDECORATED);      
 	      //  App.stage = stage;
 	        stage.setScene(scene);
