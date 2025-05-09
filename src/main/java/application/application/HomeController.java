@@ -81,7 +81,7 @@ public class HomeController {
     @FXML
     public void goToEvents(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/application/views/events.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/vues/events.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) welcomeBanner.getScene().getWindow();
             stage.setScene(scene);
@@ -117,7 +117,7 @@ public class HomeController {
     @FXML
     public void goToContact(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/application/views/contact.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/vues/contact.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) welcomeBanner.getScene().getWindow();
             stage.setScene(scene);

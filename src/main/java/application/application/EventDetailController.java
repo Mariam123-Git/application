@@ -128,6 +128,7 @@ public class EventDetailController {
 
         checkUserIsParticipant();
     }
+    
     private void loadEventDetails() {
         String sql = "SELECT e.*, a.nom AS organisateur FROM evenement e " +
                    "JOIN administrateur a ON e.id_admin = a.id_admin " +
