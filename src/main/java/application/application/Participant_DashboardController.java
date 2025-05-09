@@ -32,7 +32,7 @@ public class Participant_DashboardController {
     }
 
     private void loadUserEvents() {
-        String query = "SELECT id_evenement FROM inscription WHERE id_participant = ?";
+        String query = "SELECT id_evenement FROM inscription WHERE id_user = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {

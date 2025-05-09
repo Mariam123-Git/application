@@ -163,6 +163,8 @@ public class HomeController {
             String eventIdStr = (String) sourceButton.getUserData();
             int eventId = Integer.parseInt(eventIdStr);
             
+            System.out.println("eventId= "+eventId);
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/details.fxml"));
             Parent root = loader.load();
             

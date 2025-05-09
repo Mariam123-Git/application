@@ -67,7 +67,7 @@ public class RegistrationController implements Initializable{
     	// TODO Auto-generated method stub
    	 try {
    	        Parent root = FXMLLoader.load(getClass().getResource("/vues/Home.fxml"));
-   	        App.stage.setScene(new Scene(root,500,600));
+   	        App.stage.setScene(new Scene(root));
    	    } catch (IOException e) {
    	        e.printStackTrace(); 
    	    }

@@ -3,116 +3,89 @@ package application.application;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import application.application.Evenement;
+import application.application.DBConnection;
 public class EvenementService {
-    private Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/eventmannagement", "root", "");
-    }
-
-    public List<Evenement> getAllEvents() {
+	/**
+     * Récupère tous les événements à venir de la base de données
+     * @return Liste des événements à venir
+     */
+    public List<Evenement> getUpcomingEvents() {
         List<Evenement> events = new ArrayList<>();
-        String sql = "SELECT e.id_evenement, e.titre, e.description, e.date_debut, e.date_fin, " +
-                    "e.lieu, e.adresse, e.nb_places_max, e.image_url, c.nom as categorie, e.statut " +
-                    "FROM evenement e " +
-                    "JOIN categorie c ON e.id_categorie = c.id_categorie";
-
-        try (Connection conn = connect();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
+        String query = "SELECT e.*, c.NOM as CATEGORIE_NOM FROM EVENEMENT e " +
+                       "LEFT JOIN CATEGORIE c ON e.ID_CATEGORIE = c.ID_CATEGORIE " +
+                       "WHERE e.DATE_DEBUT > NOW() " +
+                       "ORDER BY e.DATE_DEBUT ASC";
+                       
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            
             while (rs.next()) {
-                LocalDateTime debut = rs.getTimestamp("date_debut").toLocalDateTime();
-                LocalDateTime fin = rs.getTimestamp("date_fin").toLocalDateTime();
+                Evenement event = new Evenement();
+                event.setId(rs.getInt("ID_EVENEMENT"));
+                event.setTitre(rs.getString("TITRE"));
+                event.setDateDebut(rs.getTimestamp("DATE_DEBUT").toLocalDateTime());
+                event.setDateFin(rs.getTimestamp("DATE_FIN").toLocalDateTime());
+                event.setVille(rs.getString("VILLE"));
+                event.setAdresse(rs.getString("ADRESSE"));
+                event.setDescription(rs.getString("DESCRIPTION"));
+                event.setNbPlacesMax(rs.getInt("NB_PLACES_MAX"));
+                event.setCategorieNom(rs.getString("CATEGORIE_NOM"));
+                // Si vous avez besoin de l'image, vous pouvez également la récupérer
+                // event.setImage(rs.getBlob("IMAGE"));
                 
-                events.add(new Evenement(
-                    rs.getInt("id_evenement"),
-                    rs.getString("titre"),
-                    rs.getString("description"),
-                    debut.toLocalDate(),
-                    debut.toLocalTime(),
-                    fin.toLocalTime(),
-                    rs.getString("lieu"),
-                    rs.getString("adresse"),
-                    rs.getInt("nb_places_max"),
-                    rs.getString("image_url"),
-                    rs.getString("categorie"),
-                    rs.getString("statut")
-                ));
+                events.add(event);
             }
+            
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des événements: " + e.getMessage());
             e.printStackTrace();
         }
+        
         return events;
     }
-
-    public List<String> getAllCategories() {
-        List<String> categories = new ArrayList<>();
-        String sql = "SELECT nom FROM categorie";
-
-        try (Connection conn = connect();
-             Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-            
-            while (rs.next()) {
-                categories.add(rs.getString("nom"));
-            }
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des catégories: " + e.getMessage());
-        }
-        return categories;
-    }
-
-    public List<Evenement> getFilteredEvents(LocalDate dateDebut, LocalDate dateFin, String categorie) {
+    
+    /**
+     * Récupère les événements auxquels un utilisateur est inscrit
+     * @param userId ID de l'utilisateur
+     * @return Liste des événements auxquels l'utilisateur est inscrit
+     */
+    public List<Evenement> getUserRegisteredEvents(int userId) {
         List<Evenement> events = new ArrayList<>();
-        StringBuilder sql = new StringBuilder(
-            "SELECT e.id_evenement, e.titre, e.description, e.date_debut, e.date_fin, " +
-            "e.lieu, e.adresse, e.nb_places_max, e.image_url, c.nom as categorie, e.statut " +
-            "FROM evenement e " +
-            "JOIN categorie c ON e.id_categorie = c.id_categorie " +
-            "WHERE e.date_debut BETWEEN ? AND ?"
-        );
-
-        if (categorie != null && !categorie.isEmpty()) {
-            sql.append(" AND c.nom = ?");
-        }
-
-        try (Connection conn = connect();
-             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
-
-            ps.setTimestamp(1, Timestamp.valueOf(dateDebut.atStartOfDay()));
-            ps.setTimestamp(2, Timestamp.valueOf(dateFin.atTime(23, 59, 59)));
+        String query = "SELECT e.*, c.NOM as CATEGORIE_NOM, i.STATUT FROM EVENEMENT e " +
+                       "LEFT JOIN CATEGORIE c ON e.ID_CATEGORIE = c.ID_CATEGORIE " +
+                       "JOIN INSCRIPTION i ON e.ID_EVENEMENT = i.ID_EVENEMENT " +
+                       "WHERE i.ID_USER = ? " +
+                       "ORDER BY e.DATE_DEBUT ASC";
+                       
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
             
-            if (categorie != null && !categorie.isEmpty()) {
-                ps.setString(3, categorie);
+            pstmt.setInt(1, userId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Evenement event = new Evenement();
+                    event.setId(rs.getInt("ID_EVENEMENT"));
+                    event.setTitre(rs.getString("TITRE"));
+                    event.setDateDebut(rs.getTimestamp("DATE_DEBUT").toLocalDateTime());
+                    event.setDateFin(rs.getTimestamp("DATE_FIN").toLocalDateTime());
+                    event.setVille(rs.getString("VILLE"));
+                    event.setAdresse(rs.getString("ADRESSE"));
+                    event.setDescription(rs.getString("DESCRIPTION"));
+                    event.setNbPlacesMax(rs.getInt("NB_PLACES_MAX"));
+                    event.setCategorieNom(rs.getString("CATEGORIE_NOM"));
+                    event.setStatutInscription(rs.getString("STATUT"));
+                    
+                    events.add(event);
+                }
             }
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                LocalDateTime debut = rs.getTimestamp("date_debut").toLocalDateTime();
-                LocalDateTime fin = rs.getTimestamp("date_fin").toLocalDateTime();
-                
-                events.add(new Evenement(
-                    rs.getInt("id_evenement"),
-                    rs.getString("titre"),
-                    rs.getString("description"),
-                    debut.toLocalDate(),
-                    debut.toLocalTime(),
-                    fin.toLocalTime(),
-                    rs.getString("lieu"),
-                    rs.getString("adresse"),
-                    rs.getInt("nb_places_max"),
-                    rs.getString("image_url"),
-                    rs.getString("categorie"),
-                    rs.getString("statut")
-                ));
-            }
+            
         } catch (SQLException e) {
-            System.err.println("Erreur lors du filtrage des événements: " + e.getMessage());
+            e.printStackTrace();
         }
+        
         return events;
-    }
-}
+    }}

@@ -60,8 +60,8 @@ public class MesNotificationsController {
                      "FROM notification n " +
                      "JOIN inscription i ON n.id_evenement = i.id_evenement " +
                      "JOIN evenement e ON n.id_evenement = e.id_evenement " +
-                     "JOIN users u ON e.id_admin = u.id " +
-                     "WHERE i.id_participant = ?";
+                     "JOIN user u ON e.id_user = u.id_user " +
+                     "WHERE i.id_user = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

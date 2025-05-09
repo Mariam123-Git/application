@@ -59,7 +59,8 @@ public class LoginController implements Initializable{
     private void handleLogin(MouseEvent event) {
     	String email = emailField.getText();
         String password = passwordField.getText();
-  	  //System.out.println("dedans 1");
+        
+  	  System.out.println("email   "+email +" pass=  "+password);
 
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");

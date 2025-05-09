@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class AuthService {
 	public static boolean userExists(String email) {
-        String query = "SELECT * FROM users WHERE email = ?";
+        String query = "SELECT * FROM user WHERE email = ?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
@@ -23,7 +23,7 @@ public class AuthService {
         }
     }
 	public static boolean authenticate(String email, String password) {
-	    String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+	    String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 	    
 	    try (Connection conn = DBConnection.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -33,7 +33,7 @@ public class AuthService {
 	        ResultSet rs = stmt.executeQuery();
 
 	        if (rs.next()) {
-	            int id = rs.getInt("id");
+	            int id = rs.getInt("id_user");
 	            String userName = rs.getString("username");
 	            Session.idUser = id;
 	            Session.UserName = userName;
@@ -48,7 +48,7 @@ public class AuthService {
 	}
 
 	public static void register(String username,String email, String password) {
-        String query = "INSERT INTO users(username,email, password) VALUES (?,?, ?)";
+        String query = "INSERT INTO user(username,email, password) VALUES (?,?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
         	stmt.setString(1, username);
