@@ -38,7 +38,11 @@ public class EventDetailController {
     @FXML private Label creationValue;
     @FXML private Label placesValue;
     @FXML private TextArea descArea;
-   
+    // Ajoutez ces nouveaux composants FXML
+    @FXML private Button editEventBtn;
+    @FXML private Button deleteEventBtn;
+
+    private int organizerId; // Pour stocker l'ID de l'organisateur de l'événement
     private int eventId;
     private int currentUserId = -1; // Initialisation avec valeur par défaut
     private String currentUserEmail = "";
@@ -413,4 +417,122 @@ private void viewParticipants(ActionEvent event) {
         showAlert("Error", "Failed to load participants view: " + e.getMessage(), Alert.AlertType.ERROR);
     }
 }
+     
+    
+    // Dans la méthode initData, ajoutez la vérification si l'utilisateur est l'organisateur
+    public void initData(int eventId, int userId, String userEmail) {
+        this.eventId = eventId;
+        this.currentUserId = userId;
+        this.currentUserEmail = userEmail;
+        
+        Platform.runLater(() -> {
+            loadEventDetails();
+            checkIfUserIsOrganizer(); // Nouvelle méthode pour vérifier les droits
+        });
+    }
+    
+    // Méthode pour vérifier si l'utilisateur est l'organisateur
+    private void checkIfUserIsOrganizer() {
+        if (currentUserId <= 0) return;
+        
+        String sql = "SELECT ID_USER FROM evenement WHERE ID_EVENEMENT = ?";
+        
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                organizerId = rs.getInt("ID_USER");
+                boolean isOrganizer = (organizerId == currentUserId);
+                
+                // Afficher/masquer les boutons en fonction
+                editEventBtn.setVisible(isOrganizer);
+                deleteEventBtn.setVisible(isOrganizer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // Méthode pour modifier l'événement
+    @FXML
+    private void editEvent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/EditEvent.fxml"));
+            Parent root = loader.load();
+            
+            EditEventController controller = loader.getController();
+            controller.initData(eventId, currentUserId, currentUserEmail);
+            
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir l'éditeur d'événement", Alert.AlertType.ERROR);
+        }
+    }
+    
+    // Méthode pour supprimer l'événement
+    @FXML
+    private void deleteEvent(ActionEvent event) {
+        // Confirmation avant suppression
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer cet événement ?");
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer définitivement cet événement ?");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Connection conn = null;
+            try {
+                conn = DBConnection.getConnection();
+                conn.setAutoCommit(false);
+                
+                // D'abord supprimer les inscriptions associées
+                String deleteInscriptions = "DELETE FROM inscription WHERE ID_EVENEMENT = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(deleteInscriptions)) {
+                    stmt.setInt(1, eventId);
+                    stmt.executeUpdate();
+                }
+                
+                // Puis supprimer l'événement
+                String deleteEvent = "DELETE FROM evenement WHERE ID_EVENEMENT = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(deleteEvent)) {
+                    stmt.setInt(1, eventId);
+                    int affectedRows = stmt.executeUpdate();
+                    
+                    if (affectedRows == 0) {
+                        throw new SQLException("Événement non trouvé");
+                    }
+                }
+                
+                conn.commit();
+                
+                // Retour à l'accueil après suppression
+                goBack(event);
+                
+            } catch (SQLException e) {
+                try {
+                    if (conn != null) conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                showAlert("Erreur", "Échec de la suppression : " + e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.setAutoCommit(true);
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
 }
