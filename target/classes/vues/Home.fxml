@@ -44,9 +44,6 @@
                          <Button mnemonicParsing="false" styleClass="nav-link" text="schedule" onAction="#gotoschedule" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="About"   onAction="#scrollToAbout" />
                         <Button mnemonicParsing="false" styleClass="nav-link" text="Contact" onAction="#scrollToContact" />
-<<<<<<< HEAD
-                      
-=======
                         <Button mnemonicParsing="false" styleClass="nav-link" fx:id="mes_inscriptions" text="Mes inscriptions" onAction="#scrollToInscriptions" />
                         <Button mnemonicParsing="false" styleClass="nav-link" fx:id="mes_notifications" text="Mes Notificaions" onAction="#scrollToNotifications">
 						    <graphic>
@@ -58,7 +55,6 @@
 						    </graphic>
 						</Button>
 						                        
->>>>>>> d62e9db8564739580cfb657e84026494bea3a4f1
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" styleClass="login-button" text="Login" />
@@ -126,8 +122,6 @@
                             </HBox>
                             <HBox styleClass="event-actions">
                                 <Button onAction="#handleEventRegistration" styleClass="primary-button" text="Register" />
-                                <Button onAction="#showEventDetails" styleClass="secondary-button" text="Details" />
-                                <Button onAction="#handleEventRegistration" styleClass="primary-button" text="S'inscrire" />
                                 <Button onAction="#showEventDetails" userData="1" styleClass="secondary-button" text="Détails" />
                             </HBox>
                         </VBox>
