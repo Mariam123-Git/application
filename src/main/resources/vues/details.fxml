@@ -157,6 +157,9 @@
     <Pane HBox.hgrow="ALWAYS" />
     
     <Button fx:id="registerBtn" onAction="#registerForEvent" styleClass="register-button" text="Register for the event"/>
+<Button fx:id="viewParticipantsBtn" onAction="#viewParticipants" styleClass="view-participants-button" text="View Participants"/>
+    <Button fx:id="editEventBtn" text="Modifier" onAction="#editEvent" styleClass="warning-button" visible="false"/>
+    <Button fx:id="deleteEventBtn" text="Supprimer" onAction="#deleteEvent" styleClass="danger-button" visible="false"/>
 </HBox>
     </bottom>
 </BorderPane>
