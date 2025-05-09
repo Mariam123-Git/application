@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.application.EventCreationController"
+            stylesheets="@../styles/home.css"
+            prefWidth="900" prefHeight="700">
+
+    <!-- Top Navbar -->
+    <top>
+        <VBox styleClass="navbar" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0">
+                    <children>
+                        <ImageView fitHeight="50.0" fitWidth="70.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/Logos.png" />
+                            </image>
+                        </ImageView>
+                        <Label styleClass="logo" text="EventPro" />
+                        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="nav-links">
+                            <children>
+                                <Button styleClass="nav-link" text="Home" />
+                                <Button styleClass="nav-link" text="Event" />
+                                <Button styleClass="nav-link" text="About" />
+                                <Button styleClass="nav-link" text="Contact" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <HBox alignment="TOP_CENTER" spacing="20.0" style="-fx-padding: 20;">
+            <children>
+                <!-- Left Side: Branding -->
+                <VBox alignment="CENTER" spacing="10.0" prefWidth="250.0"
+                      style="-fx-background-color: #1e90ff; -fx-padding: 20;">
+                    <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/Logos.png" />
+                        </image>
+                    </ImageView>
+                    <Label text="EventPro" style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;" />
+                    <Label text="Create your events with style"
+                           wrapText="true"
+                           textAlignment="CENTER"
+                           style="-fx-text-fill: white; -fx-font-size: 12;" />
+                </VBox>
+
+                <!-- Right Side: Form -->
+                <VBox alignment="TOP_LEFT" spacing="15.0" styleClass="event-creation-form" prefWidth="550">
+                    <Label text="New Event" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;" />
+                    
+                    <GridPane hgap="10.0" vgap="10.0">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120.0" prefWidth="150.0" />
+                            <ColumnConstraints minWidth="150.0" prefWidth="350.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="80.0" prefHeight="80.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                            <RowConstraints minHeight="30.0" prefHeight="30.0" />
+                        </rowConstraints>
+                        <children>
+                            <Label text="Title*" />
+                            <TextField fx:id="eventTitle" GridPane.columnIndex="1" />
+
+                            <Label text="Category*" GridPane.rowIndex="1" />
+                            <ComboBox fx:id="eventCategory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                            <Label text="Start Date/Time*" GridPane.rowIndex="2" />
+                            <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <children>
+                                    <DatePicker fx:id="eventStartDate" />
+                                    <TextField fx:id="eventStartTime" prefWidth="80.0" promptText="HH:mm" />
+                                </children>
+                            </HBox>
+
+                            <Label text="End Date/Time" GridPane.rowIndex="3" />
+                            <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <children>
+                                    <DatePicker fx:id="eventEndDate" />
+                                    <TextField fx:id="eventEndTime" prefWidth="80.0" promptText="HH:mm" />
+                                </children>
+                            </HBox>
+
+                            <Label text="City" GridPane.rowIndex="4" />
+                            <ComboBox fx:id="eventCity" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                            <Label text="Address" GridPane.rowIndex="5" />
+                            <ComboBox fx:id="eventAddress" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                            <Label text="Description" GridPane.rowIndex="6" />
+                            <TextArea fx:id="eventDescription" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" 
+                                      GridPane.rowSpan="3" />
+
+                            <Label text="Image" GridPane.rowIndex="9" />
+                            <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                <children>
+                                    <Button fx:id="uploadImageButton" text="Choose Image" 
+                                            onAction="#handleUploadImage" />
+                                    <Label fx:id="imageFileName" style="-fx-font-size: 11px;" />
+                                </children>
+                            </VBox>
+
+                            <Label text="Max Places" GridPane.rowIndex="10" />
+                            <TextField fx:id="eventMaxPlaces" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        </children>
+                    </GridPane>
+
+                    <Button fx:id="createEventButton" text="Create Event" 
+                            onAction="#handleCreateEventButtonAction" 
+                            styleClass="primary-button"
+                            style="-fx-font-size: 14;">
+                        <font>
+                            <Font name="Arial Black" size="14.0" />
+                        </font>
+                    </Button>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox styleClass="footer" prefHeight="40">
+            <Label styleClass="footer-text" text="© 2025 EventPro - All rights reserved" />
+        </HBox>
+    </bottom>
+</BorderPane>
